@@ -74,8 +74,8 @@ const Translation = {
     de: "Gemeinsame Ziffern",
   },
   [TranslationKey.COMMON_DIGITS_HINT]: {
-    en: "Activating common digit hint",
-    de: "Aktiviere Hinweis für gemeinsame Ziffern",
+    en: "Still guessing? Activated additional hint for common digits.",
+    de: "Immer noch nicht? Hinweis für gemeinsame Ziffern aktiviert.",
   },
   [TranslationKey.SUM_OF_DIGITS]: {
     en: "Same sum of digits",
