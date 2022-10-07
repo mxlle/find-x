@@ -13,6 +13,7 @@ export const TranslationKey = {
   EVEN: "even",
   PRIME: "prime",
   DIGITS: "digits",
+  COMMON_DIGITS: "commonDigits",
   SUM_OF_DIGITS: "sumOfDigits",
   UNIQUE_PRIME_FACTORS: "uniquePrimeFactors",
   COMMON_PRIME_FACTORS: "commonPrimeFactors",
@@ -62,6 +63,10 @@ const Translation = {
   [TranslationKey.DIGITS]: {
     en: "same digits",
     de: "gleiche Ziffern",
+  },
+  [TranslationKey.COMMON_DIGITS]: {
+    en: "common digits",
+    de: "gemeinsame Ziffern",
   },
   [TranslationKey.SUM_OF_DIGITS]: {
     en: "same sum of digits",

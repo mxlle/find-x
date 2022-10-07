@@ -15,7 +15,8 @@ export function areArraysEqual(arr1, arr2) {
 
 export function areArraysEqualIgnoreOrder(arr1, arr2) {
   return (
-    arr1.length === arr2.length && arr1.every((item) => arr2.includes(item))
+    arr1.length === arr2.length &&
+    arr1.sort().every((item, index) => item === arr2.sort()[index])
   );
 }
 
