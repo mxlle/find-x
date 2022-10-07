@@ -1,0 +1,98 @@
+@import "theme";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 12px;
+
+  @media (min-width: 375px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 600px) {
+    font-size: 24px;
+  }
+}
+
+body {
+  background: black;
+  color: white;
+  font-family: $font-family;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: min-content;
+  justify-content: center;
+}
+
+header {
+  padding: 1rem;
+}
+
+input {
+  font-size: 2rem;
+  width: 10rem;
+  background: none;
+  border: 1px solid #555;
+  color: white;
+}
+
+button,
+label {
+  font-family: $font-family;
+  cursor: pointer;
+  color: white;
+  border: 1px solid #ccc;
+  background-color: rgba(white, 0.1);
+  padding: 1rem 2rem;
+  border-radius: $border-radius;
+
+  @include hover {
+    background-color: rgba(white, 0.2);
+  }
+
+  &.primary-btn {
+    border: 1px solid $main-color;
+    background-color: rgba($main-color, 0.1);
+
+    @include hover {
+      background-color: rgba($main-color, 0.2);
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+%no-bg-btn {
+  background: none;
+  border: none;
+
+  @include hover {
+    background: none;
+  }
+}
+
+button.icon-btn {
+  @extend %no-bg-btn;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  color: #ccc;
+  transform: scale(1);
+  transition: transform 0.3s;
+
+  @include hover {
+    transform: scale(1.2);
+  }
+}
