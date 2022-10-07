@@ -26,7 +26,9 @@ function init() {
     tag: "header",
     text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
       TranslationKey.BETWEEN
-    )} ${MIN_NUM} ${getTranslation(TranslationKey.AND)} ${MAX_NUM}`,
+    )} ${globals.minNum} ${getTranslation(TranslationKey.AND)} ${
+      globals.maxNum
+    }`,
   });
 
   const guessList = getGuessList();

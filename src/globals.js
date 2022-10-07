@@ -1,5 +1,5 @@
-export const MIN_NUM = 1;
-export const MAX_NUM = 9999;
+const MIN_NUM = 1;
+const MAX_NUM = 9999;
 
 const defaultGlobals = {
   language: "de",
@@ -15,4 +15,15 @@ resetGlobals();
 
 export function resetGlobals() {
   Object.assign(globals, defaultGlobals);
+  globals.maxNum = getMaxNum();
+}
+
+function getMaxNum() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const maxValueParam = urlParams.get("max");
+  let maxNum = maxValueParam ? Number(maxValueParam) : MAX_NUM;
+  maxNum = isNaN(maxNum) ? MAX_NUM : maxNum;
+
+  return maxNum;
 }
