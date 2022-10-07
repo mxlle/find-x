@@ -50,36 +50,36 @@ const Translation = {
     de: "Richtig!",
   },
   [TranslationKey.LENGTH]: {
-    en: "same length",
-    de: "gleiche Länge",
+    en: "Same length",
+    de: "Gleiche Länge",
   },
   [TranslationKey.ODD]: {
-    en: "both odd",
-    de: "beide ungerade",
+    en: "Both odd",
+    de: "Beide ungerade",
   },
   [TranslationKey.EVEN]: {
-    en: "both even",
-    de: "beide gerade",
+    en: "Both even",
+    de: "Beide gerade",
   },
   [TranslationKey.PRIME]: {
-    en: "prime number",
-    de: "Primzahl",
+    en: "Both prime numbers",
+    de: "Beides Primzahlen",
   },
   [TranslationKey.DIGITS]: {
-    en: "same digits",
-    de: "gleiche Ziffern",
+    en: "Same digits",
+    de: "Gleiche Ziffern",
   },
   [TranslationKey.COMMON_DIGITS]: {
-    en: "common digits",
-    de: "gemeinsame Ziffern",
+    en: "Common digits",
+    de: "Gemeinsame Ziffern",
   },
   [TranslationKey.COMMON_DIGITS_HINT]: {
     en: "Activating common digit hint",
     de: "Aktiviere Hinweis für gemeinsame Ziffern",
   },
   [TranslationKey.SUM_OF_DIGITS]: {
-    en: "sum of digits",
-    de: "Quersumme",
+    en: "Same sum of digits",
+    de: "Gleiche Quersumme",
   },
   [TranslationKey.GREATEST_COMMON_DIVISOR]: {
     en: "GCD",
