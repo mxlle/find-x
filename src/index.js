@@ -29,31 +29,39 @@ function init() {
     hideButtons: true,
   });
 
+  function onSubmit() {
+    if (submitButton.innerHTML === getTranslation(TranslationKey.PLAY_AGAIN)) {
+      newGame();
+      resetGuessList();
+      submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
+      return;
+    }
+
+    const guess = parseInt(numberInput.input.value);
+
+    if (isNaN(guess)) {
+      return;
+    }
+
+    const result = evaluateGuess(guess);
+    addGuessListEntry(guess, result);
+    numberInput.input.value = "";
+
+    if (result === true) {
+      submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
+    }
+  }
+
+  numberInput.input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      onSubmit();
+    }
+  });
+
   submitButton = createButton({
     text: getTranslation(TranslationKey.SUBMIT),
     onClick: () => {
-      if (
-        submitButton.innerHTML === getTranslation(TranslationKey.PLAY_AGAIN)
-      ) {
-        newGame();
-        resetGuessList();
-        submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
-        return;
-      }
-
-      const guess = parseInt(numberInput.input.value);
-
-      if (isNaN(guess)) {
-        return;
-      }
-
-      const result = evaluateGuess(guess);
-      addGuessListEntry(guess, result);
-      numberInput.input.value = "";
-
-      if (result === true) {
-        submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
-      }
+      onSubmit();
     },
   });
 
