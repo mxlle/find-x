@@ -1,5 +1,5 @@
 const MIN_NUM = 1;
-const MAX_NUM = 9999;
+const MAX_NUM = 999;
 
 const defaultGlobals = {
   language: "de",
