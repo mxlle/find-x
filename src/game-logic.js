@@ -39,6 +39,8 @@ export function evaluateGuess(guess) {
 }
 
 function getMathProperties(int) {
+  const factors = getFactors(int);
+
   const primeFactorization = getPrimeFactorization(int);
   const uniquePrimeFactors = [...new Set(primeFactorization)];
 
@@ -56,6 +58,7 @@ function getMathProperties(int) {
   const length = digits.length;
 
   return {
+    factors,
     primeFactorization,
     uniquePrimeFactors,
     isPrime,
@@ -64,6 +67,18 @@ function getMathProperties(int) {
     sumOfDigits,
     length,
   };
+}
+
+function getFactors(int) {
+  const factors = [];
+
+  for (let i = 2; i <= int; i++) {
+    if (int % i === 0) {
+      factors.push(i);
+    }
+  }
+
+  return factors;
 }
 
 function getPrimeFactorization(int) {
@@ -116,6 +131,11 @@ function getMatchingMathProperties(properties1, properties2) {
     }
   }
 
+  matchingProperties.greatestCommonFactor = getArrayIntersection(
+    properties1.factors,
+    properties2.factors
+  ).pop();
+
   return matchingProperties;
 }
 
@@ -145,6 +165,7 @@ function mathPropertiesToStringArray(properties) {
   const {
     uniquePrimeFactors,
     commonPrimeFactors,
+    greatestCommonFactor,
     isPrime,
     isEven,
     digits,
@@ -190,6 +211,14 @@ function mathPropertiesToStringArray(properties) {
       `${getTranslation(
         TranslationKey.COMMON_PRIME_FACTORS
       )}: ${commonPrimeFactors.join(", ")}`
+    );
+  }
+
+  if (greatestCommonFactor !== undefined) {
+    stringArray.push(
+      `${getTranslation(
+        TranslationKey.GREATEST_COMMON_FACTOR
+      )}: ${greatestCommonFactor}`
     );
   }
 
