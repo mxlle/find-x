@@ -14,6 +14,7 @@ export const TranslationKey = {
   PRIME: "prime",
   DIGITS: "digits",
   COMMON_DIGITS: "commonDigits",
+  COMMON_DIGITS_HINT: "commonDigitsHint",
   SUM_OF_DIGITS: "sumOfDigits",
   UNIQUE_PRIME_FACTORS: "uniquePrimeFactors",
   COMMON_PRIME_FACTORS: "commonPrimeFactors",
@@ -68,6 +69,10 @@ const Translation = {
   [TranslationKey.COMMON_DIGITS]: {
     en: "common digits",
     de: "gemeinsame Ziffern",
+  },
+  [TranslationKey.COMMON_DIGITS_HINT]: {
+    en: "Activating common digit hint",
+    de: "Aktiviere Hinweis für gemeinsame Ziffern",
   },
   [TranslationKey.SUM_OF_DIGITS]: {
     en: "same sum of digits",

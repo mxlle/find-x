@@ -7,7 +7,7 @@ import {
 } from "./utils/array-utils";
 import { getTranslation, TranslationKey } from "./translations";
 
-const START_DIGIT_HINT = 15;
+export const START_DIGIT_HINT = 15;
 
 export function newGame() {
   resetGlobals();
@@ -120,7 +120,7 @@ function getMatchingMathProperties(properties1, properties2) {
     matchingProperties.commonPrimeFactors = commonPrimeFactors;
   }
 
-  if (globals.tries > START_DIGIT_HINT) {
+  if (globals.tries >= START_DIGIT_HINT) {
     const commonDigits = getArrayIntersection(
       removeDuplicates(properties1.digits),
       removeDuplicates(properties2.digits)

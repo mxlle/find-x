@@ -35,6 +35,15 @@ export function addGuessListEntry(guess, result) {
   guessList.prepend(entry);
 }
 
+export function addDigitHint() {
+  const digitHint = createElement({
+    cssClass: "digit-hint",
+    text: getTranslation(TranslationKey.COMMON_DIGITS_HINT),
+  });
+
+  guessList.prepend(digitHint);
+}
+
 export function resetGuessList() {
   guessList.innerHTML = "";
 }

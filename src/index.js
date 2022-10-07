@@ -1,10 +1,16 @@
 import "./index.scss";
 
 import { createButton, createElement } from "./utils/html-utils";
-import { evaluateGuess, initGameData, newGame } from "./game-logic";
+import {
+  evaluateGuess,
+  initGameData,
+  newGame,
+  START_DIGIT_HINT,
+} from "./game-logic";
 import { createNumberInputComponent } from "./components/number-input";
 import { globals, MAX_NUM, MIN_NUM } from "./globals";
 import {
+  addDigitHint,
   addGuessListEntry,
   getGuessList,
   resetGuessList,
@@ -22,6 +28,8 @@ function init() {
       TranslationKey.BETWEEN
     )} ${MIN_NUM} ${getTranslation(TranslationKey.AND)} ${MAX_NUM}`,
   });
+
+  const guessList = getGuessList();
 
   const numberInput = createNumberInputComponent({
     min: globals.minNum,
@@ -49,6 +57,8 @@ function init() {
 
     if (result === true) {
       submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
+    } else if (globals.tries === START_DIGIT_HINT) {
+      addDigitHint();
     }
   }
 
@@ -64,8 +74,6 @@ function init() {
       onSubmit();
     },
   });
-
-  const guessList = getGuessList();
 
   document.body.appendChild(header);
   document.body.appendChild(numberInput.container);
