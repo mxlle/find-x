@@ -120,7 +120,7 @@ function getMatchingMathProperties(properties1, properties2) {
     matchingProperties.commonPrimeFactors = commonPrimeFactors;
   }
 
-  if (globals.tries >= START_DIGIT_HINT) {
+  if (globals.tries > START_DIGIT_HINT) {
     const commonDigits = getArrayIntersection(
       removeDuplicates(properties1.digits),
       removeDuplicates(properties2.digits)
