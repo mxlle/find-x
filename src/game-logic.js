@@ -131,10 +131,9 @@ function getMatchingMathProperties(properties1, properties2) {
     }
   }
 
-  matchingProperties.greatestCommonFactor = getArrayIntersection(
-    properties1.factors,
-    properties2.factors
-  ).pop();
+  matchingProperties.greatestCommonFactor = Math.max(
+    ...getArrayIntersection(properties1.factors, properties2.factors)
+  );
 
   return matchingProperties;
 }
