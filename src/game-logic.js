@@ -169,20 +169,6 @@ function mathPropertiesToStringArray(properties) {
 
   const stringArray = [];
 
-  if (length !== undefined) {
-    stringArray.push(getTranslation(TranslationKey.LENGTH));
-  }
-
-  if (isEven !== undefined) {
-    stringArray.push(
-      getTranslation(isEven ? TranslationKey.EVEN : TranslationKey.ODD)
-    );
-  }
-
-  if (isPrime) {
-    stringArray.push(getTranslation(TranslationKey.PRIME));
-  }
-
   if (digits !== undefined) {
     stringArray.push(getTranslation(TranslationKey.DIGITS));
   }
@@ -195,6 +181,22 @@ function mathPropertiesToStringArray(properties) {
     );
   }
 
+  if (sumOfDigits !== undefined) {
+    stringArray.push(
+      `${getTranslation(TranslationKey.SUM_OF_DIGITS)}: ${sumOfDigits}`
+    );
+  }
+
+  if (isEven !== undefined) {
+    stringArray.push(
+      getTranslation(isEven ? TranslationKey.EVEN : TranslationKey.ODD)
+    );
+  }
+
+  if (isPrime) {
+    stringArray.push(getTranslation(TranslationKey.PRIME));
+  }
+
   if (greatestCommonDivisor !== undefined) {
     stringArray.push(
       `${getTranslation(
@@ -203,10 +205,8 @@ function mathPropertiesToStringArray(properties) {
     );
   }
 
-  if (sumOfDigits !== undefined) {
-    stringArray.push(
-      `${getTranslation(TranslationKey.SUM_OF_DIGITS)}: ${sumOfDigits}`
-    );
+  if (length !== undefined) {
+    stringArray.push(getTranslation(TranslationKey.LENGTH));
   }
 
   return stringArray;
