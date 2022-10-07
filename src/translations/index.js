@@ -17,7 +17,7 @@ export const TranslationKey = {
   COMMON_DIGITS_HINT: "commonDigitsHint",
   SUM_OF_DIGITS: "sumOfDigits",
   COMMON_PRIME_FACTORS: "commonPrimeFactors",
-  GREATEST_COMMON_FACTOR: "greatestCommonFactor",
+  GREATEST_COMMON_DIVISOR: "greatestCommonFactor",
 };
 
 const Translation = {
@@ -62,8 +62,8 @@ const Translation = {
     de: "beide gerade",
   },
   [TranslationKey.PRIME]: {
-    en: "both prime",
-    de: "beide Primzahlen",
+    en: "prime number",
+    de: "Primzahl",
   },
   [TranslationKey.DIGITS]: {
     en: "same digits",
@@ -78,12 +78,12 @@ const Translation = {
     de: "Aktiviere Hinweis für gemeinsame Ziffern",
   },
   [TranslationKey.SUM_OF_DIGITS]: {
-    en: "same sum of digits",
-    de: "gleiche Quersumme",
+    en: "sum of digits",
+    de: "Quersumme",
   },
-  [TranslationKey.GREATEST_COMMON_FACTOR]: {
-    en: "greatest common factor",
-    de: "größter gemeinsamer Teiler",
+  [TranslationKey.GREATEST_COMMON_DIVISOR]: {
+    en: "GCD",
+    de: "ggT",
   },
 };
 

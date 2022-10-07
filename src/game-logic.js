@@ -128,7 +128,7 @@ function getMatchingMathProperties(properties1, properties2) {
   );
 
   if (commonFactors.length > 0) {
-    matchingProperties.greatestCommonFactor = Math.max(...commonFactors);
+    matchingProperties.greatestCommonDivisor = Math.max(...commonFactors);
   }
 
   return matchingProperties;
@@ -158,7 +158,7 @@ function mathPropertiesToString(properties) {
 
 function mathPropertiesToStringArray(properties) {
   const {
-    greatestCommonFactor,
+    greatestCommonDivisor,
     isPrime,
     isEven,
     digits,
@@ -195,11 +195,11 @@ function mathPropertiesToStringArray(properties) {
     );
   }
 
-  if (greatestCommonFactor !== undefined) {
+  if (greatestCommonDivisor !== undefined) {
     stringArray.push(
       `${getTranslation(
-        TranslationKey.GREATEST_COMMON_FACTOR
-      )}: ${greatestCommonFactor}`
+        TranslationKey.GREATEST_COMMON_DIVISOR
+      )}: ${greatestCommonDivisor}`
     );
   }
 
