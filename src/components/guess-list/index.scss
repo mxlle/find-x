@@ -1,7 +1,7 @@
 .guess-list {
   max-width: 50rem;
   display: grid;
-  grid-template-columns: repeat(3, min-content);
+  grid-template-columns: repeat(2, min-content) 1fr;
   grid-auto-rows: min-content;
   gap: 2rem;
   align-items: center;
@@ -10,13 +10,13 @@
     display: contents;
 
     > div {
-      white-space: nowrap;
-
       &:first-child {
+        white-space: nowrap;
         color: #aaa;
       }
 
       &:nth-child(2) {
+        white-space: nowrap;
         font-weight: bold;
         font-size: 1.5em;
       }
