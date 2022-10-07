@@ -6,6 +6,7 @@ export function createNumberInputComponent({
   value,
   min,
   max,
+  placeholder,
   onChange,
   onBlur,
   hideButtons,
@@ -16,6 +17,7 @@ export function createNumberInputComponent({
   const numberInput = createElement({ tag: "input" });
   numberInput.type = "number";
   numberInput.value = value;
+  placeholder && numberInput.setAttribute("placeholder", placeholder);
   min && (numberInput.min = min);
   max && (numberInput.max = max);
   onChange && numberInput.addEventListener("change", onChange);

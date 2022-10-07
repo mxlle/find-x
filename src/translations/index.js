@@ -1,10 +1,10 @@
 import { getShortLanguageName } from "../utils/language-util";
-import { globals } from "../globals";
 
 export const TranslationKey = {
   PROMPT: "prompt",
   BETWEEN: "between",
   AND: "and",
+  PLACEHOLDER: "placeholder",
   SUBMIT: "submit",
   PLAY_AGAIN: "playAgain",
   CORRECT: "correct",
@@ -33,6 +33,10 @@ const Translation = {
   [TranslationKey.AND]: {
     en: "and",
     de: "und",
+  },
+  [TranslationKey.PLACEHOLDER]: {
+    en: "enter guess",
+    de: "Nummer eingeben",
   },
   [TranslationKey.SUBMIT]: {
     en: "Submit",
@@ -94,10 +98,10 @@ const Translation = {
 
 export function getTranslation(key, language) {
   if (!language) {
-    const shortLang = getShortLanguageName(navigator.language);
-    language =
-      globals.language ?? (shortLang in Translation[key] ? shortLang : "en"); // todo
+    language = getShortLanguageName(navigator.language);
   }
+
+  language = language in Translation[key] ? language : "en";
 
   return Translation[key][language];
 }

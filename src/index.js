@@ -35,6 +35,7 @@ function init() {
     min: globals.minNum,
     max: globals.maxNum,
     hideButtons: true,
+    placeholder: getTranslation(TranslationKey.PLACEHOLDER),
   });
 
   function onSubmit() {
