@@ -3,8 +3,11 @@ import { getRandomIntFromInterval } from "./utils/random-utils";
 import {
   areArraysEqualIgnoreOrder,
   getArrayIntersection,
+  removeDuplicates,
 } from "./utils/array-utils";
 import { getTranslation, TranslationKey } from "./translations";
+
+const START_DIGIT_HINT = 15;
 
 export function newGame() {
   resetGlobals();
@@ -102,10 +105,10 @@ function getMatchingMathProperties(properties1, properties2) {
     matchingProperties.commonPrimeFactors = commonPrimeFactors;
   }
 
-  if (globals.tries > 20) {
+  if (globals.tries > START_DIGIT_HINT) {
     const commonDigits = getArrayIntersection(
-      properties1.digits,
-      properties2.digits
+      removeDuplicates(properties1.digits),
+      removeDuplicates(properties2.digits)
     );
 
     if (commonDigits.length > 0) {
