@@ -9,6 +9,7 @@ import {
   getGuessList,
   resetGuessList,
 } from "./components/guess-list";
+import { getTranslation, TranslationKey } from "./translations";
 
 let submitButton;
 
@@ -17,7 +18,9 @@ function init() {
 
   const header = createElement({
     tag: "header",
-    text: `Find X between ${MIN_NUM} and ${MAX_NUM}`,
+    text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
+      TranslationKey.BETWEEN
+    )} ${MIN_NUM} ${getTranslation(TranslationKey.AND)} ${MAX_NUM}`,
   });
 
   const numberInput = createNumberInputComponent({
@@ -27,12 +30,14 @@ function init() {
   });
 
   submitButton = createButton({
-    text: "Submit",
+    text: getTranslation(TranslationKey.SUBMIT),
     onClick: () => {
-      if (submitButton.innerHTML === "Play again") {
+      if (
+        submitButton.innerHTML === getTranslation(TranslationKey.PLAY_AGAIN)
+      ) {
         newGame();
         resetGuessList();
-        submitButton.innerHTML = "Submit";
+        submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
         return;
       }
 
@@ -46,8 +51,8 @@ function init() {
       addGuessListEntry(guess, result);
       numberInput.input.value = "";
 
-      if (result === "correct!") {
-        submitButton.innerHTML = "Play again";
+      if (result === true) {
+        submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
       }
     },
   });
