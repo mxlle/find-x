@@ -16,7 +16,6 @@ export const TranslationKey = {
   COMMON_DIGITS: "commonDigits",
   COMMON_DIGITS_HINT: "commonDigitsHint",
   SUM_OF_DIGITS: "sumOfDigits",
-  UNIQUE_PRIME_FACTORS: "uniquePrimeFactors",
   COMMON_PRIME_FACTORS: "commonPrimeFactors",
   GREATEST_COMMON_FACTOR: "greatestCommonFactor",
 };
@@ -81,14 +80,6 @@ const Translation = {
   [TranslationKey.SUM_OF_DIGITS]: {
     en: "same sum of digits",
     de: "gleiche Quersumme",
-  },
-  [TranslationKey.UNIQUE_PRIME_FACTORS]: {
-    en: "same prime factors", // todo add uniqueness
-    de: "gleiche Primfaktoren",
-  },
-  [TranslationKey.COMMON_PRIME_FACTORS]: {
-    en: "common prime factors",
-    de: "gemeinsame Primfaktoren",
   },
   [TranslationKey.GREATEST_COMMON_FACTOR]: {
     en: "greatest common factor",

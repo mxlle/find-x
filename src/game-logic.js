@@ -111,15 +111,6 @@ function getMatchingMathProperties(properties1, properties2) {
     }
   }
 
-  const commonPrimeFactors = getArrayIntersection(
-    properties1.uniquePrimeFactors,
-    properties2.uniquePrimeFactors
-  );
-
-  if (commonPrimeFactors.length > 0) {
-    matchingProperties.commonPrimeFactors = commonPrimeFactors;
-  }
-
   if (globals.tries > START_DIGIT_HINT) {
     const commonDigits = getArrayIntersection(
       removeDuplicates(properties1.digits),
@@ -167,8 +158,6 @@ function mathPropertiesToString(properties) {
 
 function mathPropertiesToStringArray(properties) {
   const {
-    uniquePrimeFactors,
-    commonPrimeFactors,
     greatestCommonFactor,
     isPrime,
     isEven,
@@ -203,18 +192,6 @@ function mathPropertiesToStringArray(properties) {
       `${getTranslation(TranslationKey.COMMON_DIGITS)}: ${commonDigits.join(
         ", "
       )}`
-    );
-  }
-
-  if (uniquePrimeFactors !== undefined) {
-    stringArray.push(getTranslation(TranslationKey.UNIQUE_PRIME_FACTORS));
-  }
-
-  if (commonPrimeFactors !== undefined) {
-    stringArray.push(
-      `${getTranslation(
-        TranslationKey.COMMON_PRIME_FACTORS
-      )}: ${commonPrimeFactors.join(", ")}`
     );
   }
 
