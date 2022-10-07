@@ -1,6 +1,6 @@
 {
-  "short_name": "Emoji Echo",
-  "name": "Emoji Echo",
+  "short_name": "Find X",
+  "name": "Find X - Game",
   "icons": [
   ],
   "start_url": "./index.html",
