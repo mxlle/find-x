@@ -4,7 +4,6 @@ import { getRandomIntFromInterval } from "./utils/random-utils";
 export function newGame() {
   resetGlobals();
   initGameData();
-
 }
 
 export function initGameData() {
@@ -12,11 +11,12 @@ export function initGameData() {
 }
 
 export function evaluateGuess(guess) {
+  globals.tries++;
   if (guess === globals.x) {
-    return "correct";
+    return "correct!";
   } else if (guess < globals.x) {
-    return "too-low";
+    return "too low";
   } else {
-    return "too-high";
+    return "too high";
   }
 }

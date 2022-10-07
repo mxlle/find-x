@@ -8,7 +8,7 @@ export function createNumberInputComponent({
   max,
   onChange,
   onBlur,
-  hideButtons
+  hideButtons,
 }) {
   const numberInputContainer = createElement({
     cssClass: "number-input",
@@ -20,7 +20,6 @@ export function createNumberInputComponent({
   max && (numberInput.max = max);
   onChange && numberInput.addEventListener("change", onChange);
   onBlur && numberInput.addEventListener("blur", onBlur);
-
 
   if (!hideButtons) {
     const decreaseButton = createButton({
@@ -84,5 +83,5 @@ function validateInput(numberInput, checkDisabledStates) {
     numberInput.value = max;
   }
 
-  checkDisabledStates();
+  checkDisabledStates && checkDisabledStates();
 }
