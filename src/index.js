@@ -8,7 +8,7 @@ import {
   START_DIGIT_HINT,
 } from "./game-logic";
 import { createNumberInputComponent } from "./components/number-input";
-import { globals, MAX_NUM, MIN_NUM } from "./globals";
+import { globals } from "./globals";
 import {
   addDigitHint,
   addGuessListEntry,
@@ -16,20 +16,49 @@ import {
   resetGuessList,
 } from "./components/guess-list";
 import { getTranslation, TranslationKey } from "./translations";
+import { createDialog } from "./components/dialog";
 
-let submitButton;
+let submitButton, configDialog;
+
+function onNewGameClick() {
+  newGame();
+  resetGuessList();
+  submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
+}
+
+function openConfig() {
+  if (!configDialog) {
+    configDialog = createDialog(
+      getConfigContainer(),
+      undefined,
+      getTranslation(TranslationKey.DIFFICULTY)
+    );
+  }
+
+  configDialog.open();
+}
 
 function init() {
   initGameData();
 
   const header = createElement({
     tag: "header",
-    text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
-      TranslationKey.BETWEEN
-    )} ${globals.minNum} ${getTranslation(TranslationKey.AND)} ${
-      globals.maxNum
-    }`,
   });
+  header.append(
+    createButton({ text: "🔄", onClick: onNewGameClick, iconBtn: true })
+  );
+  header.append(
+    createElement({
+      text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
+        TranslationKey.BETWEEN
+      )} ${globals.minNum} ${getTranslation(TranslationKey.AND)} ${
+        globals.maxNum
+      }`,
+    })
+  );
+  header.append(
+    createButton({ text: "⚙️", onClick: openConfig, iconBtn: true })
+  );
 
   const guessList = getGuessList();
 
@@ -42,9 +71,7 @@ function init() {
 
   function onSubmit() {
     if (submitButton.innerHTML === getTranslation(TranslationKey.PLAY_AGAIN)) {
-      newGame();
-      resetGuessList();
-      submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
+      onNewGameClick();
       return;
     }
 
@@ -82,6 +109,46 @@ function init() {
   document.body.appendChild(numberInput.container);
   document.body.appendChild(submitButton);
   document.body.appendChild(guessList);
+}
+
+function getConfigContainer() {
+  const container = createElement({ cssClass: "config-container" });
+
+  function closeAndReload(max) {
+    configDialog.close();
+    setTimeout(() => {
+      const params = new URLSearchParams();
+      params.set("max", max);
+      window.location.search = params.toString();
+    }, 300);
+  }
+
+  container.append(
+    createButton({
+      text: getTranslation(TranslationKey.EASY) + " (1-99)",
+      onClick: () => {
+        closeAndReload(99);
+      },
+    })
+  );
+  container.append(
+    createButton({
+      text: getTranslation(TranslationKey.MEDIUM) + " (1-999)",
+      onClick: () => {
+        closeAndReload(999);
+      },
+    })
+  );
+  container.append(
+    createButton({
+      text: getTranslation(TranslationKey.HARD) + " (1-9999)",
+      onClick: () => {
+        closeAndReload(9999);
+      },
+    })
+  );
+
+  return container;
 }
 
 // INIT

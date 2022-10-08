@@ -34,7 +34,11 @@ body {
 }
 
 header {
+  display: grid;
   padding: 1rem;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 input {
@@ -102,5 +106,15 @@ button.icon-btn {
 
   @include hover {
     transform: scale(1.2);
+  }
+}
+
+.config-container {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  button {
+    font-size: 2em;
   }
 }

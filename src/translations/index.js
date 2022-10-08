@@ -7,6 +7,10 @@ export const TranslationKey = {
   PLACEHOLDER: "placeholder",
   SUBMIT: "submit",
   PLAY_AGAIN: "playAgain",
+  DIFFICULTY: "difficulty",
+  EASY: "easy",
+  MEDIUM: "medium",
+  HARD: "hard",
   CORRECT: "correct",
   LENGTH: "length",
   ODD: "odd",
@@ -44,6 +48,22 @@ const Translation = {
   [TranslationKey.PLAY_AGAIN]: {
     en: "Play again",
     de: "Nochmal spielen",
+  },
+  [TranslationKey.DIFFICULTY]: {
+    en: "Difficulty",
+    de: "Schwierigkeit",
+  },
+  [TranslationKey.EASY]: {
+    en: "Easy",
+    de: "Leicht",
+  },
+  [TranslationKey.MEDIUM]: {
+    en: "Medium",
+    de: "Mittel",
+  },
+  [TranslationKey.HARD]: {
+    en: "Hard",
+    de: "Schwer",
   },
   [TranslationKey.CORRECT]: {
     en: "Correct!",
