@@ -198,10 +198,6 @@ function mathPropertiesToStringArray(properties) {
     );
   }
 
-  if (isPrime) {
-    stringArray.push(getTranslation(TranslationKey.PRIME));
-  }
-
   if (greatestCommonDivisor !== undefined) {
     stringArray.push(
       `${getTranslation(
@@ -210,7 +206,11 @@ function mathPropertiesToStringArray(properties) {
     );
   }
 
-  if (primeFactorizationCount !== undefined) {
+  if (isPrime) {
+    stringArray.push(getTranslation(TranslationKey.PRIME));
+  }
+
+  if (primeFactorizationCount !== undefined && !isPrime) {
     stringArray.push(
       `${getTranslation(
         TranslationKey.PRIME_FACTORIZATION_COUNT
