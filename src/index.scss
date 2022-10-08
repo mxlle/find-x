@@ -30,18 +30,36 @@ body {
   display: grid;
   gap: 2rem;
   grid-auto-rows: min-content;
-  justify-content: center;
+  justify-items: center;
 }
 
 header {
   display: grid;
-  padding: 1rem;
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
   grid-template-columns: min-content 1fr min-content;
   align-items: center;
   gap: 1.5rem;
+  width: 100%;
+}
+
+.number-input,
+.submit-btn,
+.guess-list {
+  width: 90vw;
+  max-width: 500px;
+}
+
+.guess-list {
+  max-width: 600px;
+}
+
+.submit-btn {
+  font-size: 0.8em;
 }
 
 input {
+  box-sizing: border-box;
   font-size: 2rem;
   width: 100%;
   background: #222;

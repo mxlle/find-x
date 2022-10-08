@@ -104,6 +104,7 @@ function init() {
       onSubmit();
     },
   });
+  submitButton.classList.add("submit-btn");
 
   document.body.appendChild(header);
   document.body.appendChild(numberInput.container);
