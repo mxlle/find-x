@@ -1,3 +1,5 @@
+@import "../../theme";
+
 .guess-list {
   max-width: 50rem;
   display: grid;
@@ -31,5 +33,44 @@
     grid-column: 1 / 4;
     font-style: italic;
     color: #aaa;
+    max-width: 80vw;
+  }
+
+  .guess-list-entry > div,
+  .digit-hint {
+    max-height: 8rem;
+    opacity: 1;
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+
+    &.result {
+      transition-delay: 0s, 0.5s;
+    }
+  }
+
+  .guess-list-entry.hidden > div,
+  .digit-hint.hidden {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .result.correct {
+    animation: scaleJump 1s;
+    animation-delay: 0.5s;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: lime;
+  }
+}
+
+// scale animation
+@keyframes scaleJump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
   }
 }

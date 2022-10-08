@@ -20,8 +20,11 @@ export function addGuessListEntry(guess, result) {
   const resultText = createElement({ cssClass: "result" });
   if (result === true) {
     resultText.append(
-      createElement({ text: getTranslation(TranslationKey.CORRECT) })
+      createElement({
+        text: getTranslation(TranslationKey.CORRECT),
+      })
     );
+    resultText.classList.add("correct");
   } else if (Array.isArray(result)) {
     result.forEach((r) => {
       resultText.append(createElement({ text: r }));
@@ -32,7 +35,7 @@ export function addGuessListEntry(guess, result) {
   }
   entry.append(resultText);
 
-  guessList.prepend(entry);
+  prependWithAnimation(entry);
 }
 
 export function addDigitHint() {
@@ -41,7 +44,15 @@ export function addDigitHint() {
     text: getTranslation(TranslationKey.COMMON_DIGITS_HINT),
   });
 
-  guessList.prepend(digitHint);
+  prependWithAnimation(digitHint);
+}
+
+function prependWithAnimation(element) {
+  element.classList.add("hidden");
+  guessList.prepend(element);
+  setTimeout(() => {
+    element.classList.remove("hidden");
+  });
 }
 
 export function resetGuessList() {
