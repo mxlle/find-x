@@ -1,4 +1,4 @@
-const MIN_NUM = 1;
+const MIN_NUM = 10;
 const MAX_NUM = 99;
 
 const defaultGlobals = {
@@ -15,15 +15,19 @@ resetGlobals();
 
 export function resetGlobals() {
   Object.assign(globals, defaultGlobals);
-  globals.maxNum = getMaxNum();
+  globals.maxNum = Math.max(getNumFromParam("max", MAX_NUM), 9);
+  globals.minNum = Math.max(
+    Math.min(getNumFromParam("min", MIN_NUM), globals.maxNum),
+    1
+  );
 }
 
-function getMaxNum() {
+function getNumFromParam(param, fallback) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const maxValueParam = urlParams.get("max");
-  let maxNum = maxValueParam ? Number(maxValueParam) : MAX_NUM;
-  maxNum = isNaN(maxNum) ? MAX_NUM : maxNum;
+  const valueParam = urlParams.get(param);
+  let num = valueParam ? Number(valueParam) : fallback;
+  num = isNaN(num) ? fallback : num;
 
-  return maxNum;
+  return num;
 }

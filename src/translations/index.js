@@ -12,7 +12,6 @@ export const TranslationKey = {
   MEDIUM: "medium",
   HARD: "hard",
   CORRECT: "correct",
-  LENGTH: "length",
   ODD: "odd",
   EVEN: "even",
   PRIME: "prime",
@@ -68,10 +67,6 @@ const Translation = {
   [TranslationKey.CORRECT]: {
     en: "Correct!",
     de: "Richtig!",
-  },
-  [TranslationKey.LENGTH]: {
-    en: "Same length",
-    de: "Gleiche Länge",
   },
   [TranslationKey.ODD]: {
     en: "Both odd",

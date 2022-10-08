@@ -114,10 +114,11 @@ function init() {
 function getConfigContainer() {
   const container = createElement({ cssClass: "config-container" });
 
-  function closeAndReload(max) {
+  function closeAndReload(min, max) {
     configDialog.close();
     setTimeout(() => {
       const params = new URLSearchParams();
+      params.set("min", min);
       params.set("max", max);
       window.location.search = params.toString();
     }, 300);
@@ -125,25 +126,25 @@ function getConfigContainer() {
 
   container.append(
     createButton({
-      text: getTranslation(TranslationKey.EASY) + " (1-99)",
+      text: getTranslation(TranslationKey.EASY) + " (10-99)",
       onClick: () => {
-        closeAndReload(99);
+        closeAndReload(10, 99);
       },
     })
   );
   container.append(
     createButton({
-      text: getTranslation(TranslationKey.MEDIUM) + " (1-999)",
+      text: getTranslation(TranslationKey.MEDIUM) + " (100-999)",
       onClick: () => {
-        closeAndReload(999);
+        closeAndReload(100, 999);
       },
     })
   );
   container.append(
     createButton({
-      text: getTranslation(TranslationKey.HARD) + " (1-9999)",
+      text: getTranslation(TranslationKey.HARD) + " (1000-9999)",
       onClick: () => {
-        closeAndReload(9999);
+        closeAndReload(1000, 9999);
       },
     })
   );

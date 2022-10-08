@@ -56,8 +56,6 @@ function getMathProperties(int) {
 
   const sumOfDigits = digits.reduce((sum, digit) => sum + digit, 0);
 
-  const length = digits.length;
-
   return {
     factors,
     primeFactorization,
@@ -67,7 +65,6 @@ function getMathProperties(int) {
     isEven,
     digits,
     sumOfDigits,
-    length,
   };
 }
 
@@ -145,7 +142,6 @@ function mathPropertiesToString(properties) {
     isEven,
     digits,
     sumOfDigits,
-    length,
   } = properties;
 
   return `
@@ -156,7 +152,6 @@ function mathPropertiesToString(properties) {
     Is even: ${isEven}
     Digits: ${digits.join(", ")}
     Sum of digits: ${sumOfDigits}
-    Length: ${length}
   `;
 }
 
@@ -168,7 +163,6 @@ function mathPropertiesToStringArray(properties) {
     digits,
     commonDigits,
     sumOfDigits,
-    length,
     primeFactorizationCount,
   } = properties;
 
@@ -216,10 +210,6 @@ function mathPropertiesToStringArray(properties) {
         TranslationKey.PRIME_FACTORIZATION_COUNT
       )}: ${primeFactorizationCount}`
     );
-  }
-
-  if (length !== undefined) {
-    stringArray.push(getTranslation(TranslationKey.LENGTH));
   }
 
   return stringArray;
