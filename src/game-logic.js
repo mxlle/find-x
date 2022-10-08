@@ -43,6 +43,7 @@ function getMathProperties(int) {
 
   const primeFactorization = getPrimeFactorization(int);
   const uniquePrimeFactors = [...new Set(primeFactorization)];
+  const primeFactorizationCount = primeFactorization.length;
 
   const isPrime = primeFactorization.length === 1;
 
@@ -60,6 +61,7 @@ function getMathProperties(int) {
   return {
     factors,
     primeFactorization,
+    primeFactorizationCount,
     uniquePrimeFactors,
     isPrime,
     isEven,
@@ -137,6 +139,7 @@ function getMatchingMathProperties(properties1, properties2) {
 function mathPropertiesToString(properties) {
   const {
     primeFactorization,
+    primeFactorizationCount,
     uniquePrimeFactors,
     isPrime,
     isEven,
@@ -147,6 +150,7 @@ function mathPropertiesToString(properties) {
 
   return `
     Prime Factorization: ${primeFactorization.join(", ")}
+    Prime Factorization Count: ${primeFactorizationCount}
     Unique Prime Factors: ${uniquePrimeFactors.join(", ")}
     Is prime: ${isPrime}
     Is even: ${isEven}
@@ -165,6 +169,7 @@ function mathPropertiesToStringArray(properties) {
     commonDigits,
     sumOfDigits,
     length,
+    primeFactorizationCount,
   } = properties;
 
   const stringArray = [];
@@ -202,6 +207,14 @@ function mathPropertiesToStringArray(properties) {
       `${getTranslation(
         TranslationKey.GREATEST_COMMON_DIVISOR
       )}: ${greatestCommonDivisor}`
+    );
+  }
+
+  if (primeFactorizationCount !== undefined) {
+    stringArray.push(
+      `${getTranslation(
+        TranslationKey.PRIME_FACTORIZATION_COUNT
+      )}: ${primeFactorizationCount}`
     );
   }
 
