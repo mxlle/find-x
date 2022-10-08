@@ -8,6 +8,7 @@ export const TranslationKey = {
   SUBMIT: "submit",
   PLAY_AGAIN: "playAgain",
   DIFFICULTY: "difficulty",
+  BEGINNER: "beginner",
   EASY: "easy",
   MEDIUM: "medium",
   HARD: "hard",
@@ -51,6 +52,10 @@ const Translation = {
   [TranslationKey.DIFFICULTY]: {
     en: "Difficulty",
     de: "Schwierigkeit",
+  },
+  [TranslationKey.BEGINNER]: {
+    en: "Beginner",
+    de: "Anfänger",
   },
   [TranslationKey.EASY]: {
     en: "Easy",
