@@ -6,9 +6,9 @@ import { globals } from "../../globals";
 import { getCurrentlyRevealedProperties } from "../revealed-properties";
 import { getArrayIntersection } from "../../utils/array-utils";
 
-let possibleNumbers;
-let originalPossibleNumbers;
-let possibleNumberProperties;
+let possibleNumbers = [];
+let originalPossibleNumbers = [];
+let possibleNumberProperties = [];
 
 export function resetPossibleNumbers() {
   possibleNumbers = [];
@@ -17,10 +17,10 @@ export function resetPossibleNumbers() {
 }
 
 export function updatePossibleNumbers(possibleNumberElem) {
-  if (!possibleNumbers) {
+  if (!possibleNumbers?.length) {
     const min = globals.minNum;
     const max = globals.maxNum;
-    possibleNumbers = new Array(max - min)
+    possibleNumbers = new Array(max - min + 1)
       .fill(1)
       .map((_, index) => index + min);
     originalPossibleNumbers = [...possibleNumbers];
@@ -43,12 +43,16 @@ export function updatePossibleNumbers(possibleNumberElem) {
 
     possibleNumberProperties = possibleNumberProperties.filter(
       (numProperties) => {
+        function debugLog(text) {
+          console.debug(text, numProperties.value);
+        }
+
         if (greatestKnownDivisor) {
           const isDivisorMatching =
             numProperties.value % greatestKnownDivisor === 0;
 
           if (!isDivisorMatching) {
-            console.debug("divisor not matching");
+            debugLog("divisor not matching");
             return false;
           }
         }
@@ -58,7 +62,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
             numProperties.sumOfDigits === globals.xProperties.sumOfDigits;
 
           if (!isSumMatching) {
-            console.debug("sum not matching");
+            debugLog("sum not matching");
             return false;
           }
         }
@@ -68,7 +72,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
             numProperties.isPrime === globals.xProperties.isPrime;
 
           if (!isPrimeMatching) {
-            console.debug("prime not matching");
+            debugLog("prime not matching");
             return false;
           }
         }
@@ -78,7 +82,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
         );
 
         if (!isSumOfDigitsPossible) {
-          console.debug("sum not possible");
+          debugLog("sum not possible");
           return false;
         }
 
@@ -90,7 +94,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
           const isPrimeFactorsPossible = !intersectWithExcluded.length;
 
           if (!isPrimeFactorsPossible) {
-            console.debug("prime factors not possible");
+            debugLog("prime factors not possible");
             return false;
           }
         }
@@ -98,7 +102,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
         const isEvenOddMatching =
           globals.xProperties.isEven === numProperties.isEven;
         if (!isEvenOddMatching) {
-          console.log("even/odd not matching");
+          debugLog("even/odd not matching");
           return false;
         }
 
@@ -112,8 +116,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
       );
     }
   }
-
-  console.log(possibleNumbers);
 
   if (possibleNumberElem) {
     possibleNumberElem.innerHTML = `Possibilities: ${possibleNumbers.length} (of originally ${originalPossibleNumbers.length})`;

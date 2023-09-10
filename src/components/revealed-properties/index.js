@@ -75,7 +75,9 @@ export function updateRevealedProperties(result, guessProperties) {
     updateEvenOddProperties(globals.xProperties.isEven);
   }
   if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
-    updateIsPrime(result.isPrime);
+    if (result !== true) {
+      updateIsPrime(result.isPrime);
+    }
   }
 
   if (result.greatestCommonDivisor) {
