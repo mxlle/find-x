@@ -57,6 +57,7 @@ export function getMathProperties(int) {
   const sumOfDigits = digits.reduce((sum, digit) => sum + digit, 0);
 
   return {
+    value: int,
     factors,
     primeFactorization,
     primeFactorizationCount,
@@ -93,6 +94,18 @@ export function getPrimeFactorization(int) {
   }
 
   return factors;
+}
+
+export function getLeastCommonMultiple(properties1, properties2) {
+  const commonFactors = getArrayIntersection(
+    properties1.factors,
+    properties2.factors,
+  );
+
+  const greatestCommonDivisor =
+    commonFactors.length > 0 ? Math.max(...commonFactors) : 1;
+
+  return (properties1.value * properties2.value) / greatestCommonDivisor;
 }
 
 function getMatchingMathProperties(properties1, properties2) {

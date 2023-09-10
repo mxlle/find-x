@@ -84,5 +84,9 @@ export function createDialog(innerElement, submitButtonText, headerText) {
     toggleSubmitDisabled: (isDisabled) => {
       if (submitButton) submitButton.disabled = isDisabled;
     },
+    recreateDialogContent: (newInnerElement) => {
+      dialogContent.innerHTML = "";
+      dialogContent.appendChild(newInnerElement);
+    },
   };
 }

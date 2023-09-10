@@ -14,18 +14,20 @@
     display: contents;
 
     div {
-      white-space: nowrap;
       text-align: left;
     }
   }
-}
 
-body.win {
+  .header-row {
+    div {
+      white-space: nowrap;
+    }
+  }
+
   .prime-factors,
   .sum-of-digits {
     div:nth-child(2) {
       opacity: 0.5;
-      filter: grayscale(1);
     }
   }
 }

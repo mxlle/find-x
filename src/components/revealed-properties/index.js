@@ -2,7 +2,7 @@ import { createElement } from "../../utils/html-utils";
 
 import "./index.scss";
 import { globals } from "../../globals";
-import { getPrimeFactorization } from "../../game-logic";
+import { getLeastCommonMultiple, getMathProperties } from "../../game-logic";
 
 let evenElem,
   oddElem,
@@ -13,10 +13,23 @@ let evenElem,
   excludedPrimeFactorsElem,
   excludedSumOfDigitsElem,
   correctSumOfDigitsElem;
-const knownIncludedPrimeFactors = [];
-const knownExcludedPrimeFactors = [];
-const knownExcludedSumOfDigits = [];
+let knownExcludedPrimeFactors = [];
+let knownExcludedSumOfDigits = [];
 let isSumOfDigitsMatched = false;
+let currentGreatestKnownDivisorProperties;
+let isPrimeKnown = false;
+let isEvenKnown = false;
+
+export function getCurrentlyRevealedProperties() {
+  return {
+    currentGreatestKnownDivisorProperties,
+    isEvenKnown,
+    isPrimeKnown,
+    isSumOfDigitsMatched,
+    knownExcludedPrimeFactors,
+    knownExcludedSumOfDigits,
+  };
+}
 
 export function createRevealedProperties() {
   const container = createElement({ cssClass: "revealed-properties" });
@@ -24,7 +37,7 @@ export function createRevealedProperties() {
   const header = createElement({ text: "Properties of the secret", tag: "h2" });
   container.append(header);
 
-  const entry = createElement({ cssClass: "table-row" });
+  const entry = createElement({ cssClass: "table-row header-row" });
   entry.append(createElement({ text: "Even" }));
   entry.append(createElement({ text: "Odd" }));
   entry.append(createElement({ text: "Prime" }));
@@ -61,13 +74,12 @@ export function updateRevealedProperties(result, guessProperties) {
   if (globals.tries === 1) {
     updateEvenOddProperties(globals.xProperties.isEven);
   }
-  if (guessProperties.isPrime) {
+  if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
     updateIsPrime(result.isPrime);
   }
+
   if (result.greatestCommonDivisor) {
-    updateRevealedPrimeFactors(
-      getPrimeFactorization(result.greatestCommonDivisor),
-    );
+    updatedRevealedPrimeFactorsFromGcd(result.greatestCommonDivisor);
   }
   if (result.sumOfDigits) {
     updateConfirmedSumOfDigits(result.sumOfDigits);
@@ -75,31 +87,78 @@ export function updateRevealedProperties(result, guessProperties) {
     updateRevealedExcludedSumOfDigits(guessProperties.sumOfDigits);
   }
 
+  const excludedPrimeFactors = guessProperties.uniquePrimeFactors.filter(
+    (primeFactor) =>
+      !result.greatestCommonDivisor ||
+      result.greatestCommonDivisor % primeFactor !== 0,
+  );
+  updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
+
   if (result === true) {
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
+    updateIsPrime(globals.xProperties.isPrime);
   }
 }
 
 function updateEvenOddProperties(isEven) {
+  isEvenKnown = true;
   evenElem.innerText = isEven ? "✅" : "❌";
   oddElem.innerText = !isEven ? "✅" : "❌";
 }
 
 function updateIsPrime(isPrime) {
-  primeElem.innerText = isPrime ? "✅" : "❌";
+  if (!isPrimeKnown) {
+    isPrimeKnown = true;
+    primeElem.innerText = isPrime ? "✅" : "❌";
+  }
+}
+
+function updateRevealedExcludedPrimeFactors(excludedPrimeFactors) {
+  for (const excludedPrimeFactor of excludedPrimeFactors) {
+    if (!knownExcludedPrimeFactors.includes(excludedPrimeFactor)) {
+      knownExcludedPrimeFactors.push(excludedPrimeFactor);
+    }
+  }
+
+  excludedPrimeFactorsElem.innerText =
+    "X: " + [...knownExcludedPrimeFactors].sort((a, b) => a - b).join(", ");
 }
 
 function updateRevealedPrimeFactors(primeFactors, isFinal) {
-  const newPrimeFactors = primeFactors.filter((primeFactor) => {
-    return !knownIncludedPrimeFactors.includes(primeFactor);
-  }); // today duplicate prime factors
-  knownIncludedPrimeFactors.push(...newPrimeFactors);
   const prefix = isFinal ? "✅: " : "✔: ";
   const postfix = isFinal ? "" : ", ... ?";
-  const mainText =
-    knownIncludedPrimeFactors.sort((a, b) => a - b).join(", ") || "?";
+  const mainText = primeFactors.sort((a, b) => a - b).join(", ") || "?";
   includedPrimeFactorsElem.innerText = prefix + mainText + postfix;
+}
+
+function updatedRevealedPrimeFactorsFromGcd(resultGcd) {
+  if (resultGcd !== currentGreatestKnownDivisorProperties?.value) {
+    const guessCommonDivisorProperties = getMathProperties(resultGcd);
+    if (!currentGreatestKnownDivisorProperties) {
+      currentGreatestKnownDivisorProperties = guessCommonDivisorProperties;
+      updateRevealedPrimeFactors(
+        guessCommonDivisorProperties.primeFactorization,
+      );
+    } else {
+      const newCurrentProductOfAllKnownPrimeFactorsProperties =
+        getLeastCommonMultiple(
+          guessCommonDivisorProperties,
+          currentGreatestKnownDivisorProperties,
+        );
+      if (
+        newCurrentProductOfAllKnownPrimeFactorsProperties !==
+        currentGreatestKnownDivisorProperties.value
+      ) {
+        currentGreatestKnownDivisorProperties = getMathProperties(
+          newCurrentProductOfAllKnownPrimeFactorsProperties,
+        );
+        updateRevealedPrimeFactors(
+          currentGreatestKnownDivisorProperties.primeFactorization,
+        );
+      }
+    }
+  }
 }
 
 function updateRevealedExcludedSumOfDigits(excludedSumOfDigits) {
@@ -127,10 +186,11 @@ export function resetRevealedProperties() {
   evenElem.innerText = "?";
   oddElem.innerText = "?";
   primeElem.innerText = "?";
-  knownIncludedPrimeFactors.length = 0;
-  knownExcludedPrimeFactors.length = 0;
-  knownExcludedSumOfDigits.length = 0;
+  knownExcludedPrimeFactors = [];
+  knownExcludedSumOfDigits = [];
   isSumOfDigitsMatched = false;
+  isEvenKnown = false;
+  isPrimeKnown = false;
   includedPrimeFactorsElem.innerText = "☑️: ?";
   excludedSumOfDigitsElem.innerText = "X: ?";
   correctSumOfDigitsElem.innerText = "☑️: ?";

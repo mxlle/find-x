@@ -19,19 +19,25 @@ import {
 } from "./components/guess-list";
 import { getTranslation, TranslationKey } from "./translations";
 import { createDialog } from "./components/dialog";
-import { createCheatSheet } from "./components/cheat-sheet";
+import {
+  createCheatSheet,
+  resetPossibleNumbers,
+  updatePossibleNumbers,
+} from "./components/cheat-sheet";
 import {
   createRevealedProperties,
   resetRevealedProperties,
   updateRevealedProperties,
 } from "./components/revealed-properties";
 
-let submitButton, configDialog, cheatSheetDialog;
+let submitButton, configDialog, cheatSheetDialog, possibleNumberElem;
 
 function onNewGameClick() {
   newGame();
   resetGuessList();
   resetRevealedProperties();
+  resetPossibleNumbers();
+  updatePossibleNumbers(possibleNumberElem);
   document.body.classList.remove("win");
   submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
 }
@@ -51,7 +57,7 @@ function openConfig() {
 function openCheatSheet() {
   if (!cheatSheetDialog) {
     cheatSheetDialog = createDialog(
-      createCheatSheet(globals.minNum, globals.maxNum),
+      createCheatSheet(),
       undefined,
       getTranslation(TranslationKey.CHEAT_SHEET),
     );
@@ -115,6 +121,11 @@ function init() {
     );
     updateRevealedProperties(result, guessProperties);
 
+    updatePossibleNumbers(possibleNumberElem);
+    if (cheatSheetDialog) {
+      cheatSheetDialog.recreateDialogContent(createCheatSheet());
+    }
+
     numberInput.input.value = "";
 
     if (result === true) {
@@ -141,8 +152,13 @@ function init() {
 
   const revealedProperties = createRevealedProperties();
 
+  possibleNumberElem = createElement({ cssClass: "possible-numbers" });
+
+  updatePossibleNumbers(possibleNumberElem);
+
   document.body.appendChild(header);
   document.body.appendChild(numberInput.container);
+  document.body.appendChild(possibleNumberElem);
   document.body.appendChild(submitButton);
   document.body.appendChild(revealedProperties);
   document.body.appendChild(guessList);
