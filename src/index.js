@@ -5,14 +5,11 @@ import {
   evaluateGuess,
   getMathProperties,
   initGameData,
-  mathPropertiesToStringArray,
   newGame,
-  START_DIGIT_HINT,
 } from "./game-logic";
 import { createNumberInputComponent } from "./components/number-input";
 import { globals } from "./globals";
 import {
-  addDigitHint,
   addGuessListEntry,
   getGuessList,
   resetGuessList,
@@ -26,6 +23,8 @@ import {
 } from "./components/cheat-sheet";
 import {
   createRevealedProperties,
+  getCurrentlyRevealedProperties,
+  registerGuessListElement,
   resetRevealedProperties,
   updateRevealedProperties,
 } from "./components/revealed-properties";
@@ -38,6 +37,9 @@ function onNewGameClick() {
   resetRevealedProperties();
   resetPossibleNumbers();
   updatePossibleNumbers(possibleNumberElem);
+  if (cheatSheetDialog) {
+    cheatSheetDialog.recreateDialogContent(createCheatSheet());
+  }
   document.body.classList.remove("win");
   submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
 }
@@ -115,25 +117,26 @@ function init() {
     const guessProperties = getMathProperties(guess);
 
     const result = evaluateGuess(guess, guessProperties);
-    addGuessListEntry(
-      guess,
-      result === true ? true : mathPropertiesToStringArray(result),
-    );
     updateRevealedProperties(result, guessProperties);
+    const values = getCurrentlyRevealedProperties();
+    addGuessListEntry(guessProperties, result, values.isPrimeKnown);
 
     updatePossibleNumbers(possibleNumberElem);
     if (cheatSheetDialog) {
       cheatSheetDialog.recreateDialogContent(createCheatSheet());
     }
 
+    registerGuessListElement(guessList);
+
     numberInput.input.value = "";
 
     if (result === true) {
       submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
       document.body.classList.add("win");
-    } else if (globals.tries === START_DIGIT_HINT) {
-      addDigitHint();
     }
+    /* else if (globals.tries === START_DIGIT_HINT) {
+      addDigitHint();
+    }*/
   }
 
   numberInput.input.addEventListener("keydown", (event) => {
@@ -161,7 +164,7 @@ function init() {
   document.body.appendChild(possibleNumberElem);
   document.body.appendChild(submitButton);
   document.body.appendChild(revealedProperties);
-  document.body.appendChild(guessList);
+  registerGuessListElement(guessList);
 }
 
 function getConfigContainer() {

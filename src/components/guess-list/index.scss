@@ -39,9 +39,13 @@
   .digit-hint {
     max-height: 8rem;
     opacity: 1;
-    transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+    transition:
+      max-height 0.5s ease-in,
+      opacity 0.5s ease-in;
+    text-align: left;
+    align-self: center;
 
-    &.result {
+    &:nth-child(n + 2) {
       transition-delay: 0s, 0.5s;
     }
   }
@@ -52,7 +56,17 @@
     opacity: 0;
   }
 
-  .result.correct {
+  .guess-prime-factors {
+    > * {
+      display: inline-block;
+
+      &:not(:last-child):after {
+        content: ", ";
+      }
+    }
+  }
+
+  .correct-result {
     animation: scaleJump 1s;
     animation-delay: 0.5s;
     font-weight: bold;

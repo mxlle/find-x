@@ -8,6 +8,7 @@ const defaultGlobals = {
   tries: 0,
   x: undefined,
   xProperties: undefined,
+  checkForPrimes: false,
 };
 
 export const globals = {};

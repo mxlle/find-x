@@ -4,9 +4,10 @@ import "./index.scss";
 import { globals } from "../../globals";
 import { getLeastCommonMultiple, getMathProperties } from "../../game-logic";
 
-let secretElem,
-  evenElem,
-  oddElem,
+let containerElem,
+  guessListElem,
+  secretElem,
+  evenOddElem,
   primeElem,
   primeFactorsElem,
   sumOfDigitsElem,
@@ -33,23 +34,25 @@ export function getCurrentlyRevealedProperties() {
 }
 
 export function createRevealedProperties() {
-  const container = createElement({ cssClass: "revealed-properties" });
+  containerElem = createElement({ cssClass: "revealed-properties" });
 
   const header = createElement({ text: "Properties of the secret", tag: "h2" });
-  container.append(header);
+  containerElem.append(header);
 
   const entry = createElement({ cssClass: "table-row header-row" });
+  entry.append(createElement({ text: "" }));
   entry.append(createElement({ text: "Secret", cssClass: "secret" }));
-  entry.append(createElement({ text: "Even" }));
-  entry.append(createElement({ text: "Odd" }));
-  entry.append(createElement({ text: "Prime" }));
+  entry.append(createElement({ text: "Even/Odd" }));
+  if (globals.checkForPrimes) {
+    entry.append(createElement({ text: "Prime" }));
+    containerElem.classList.add("has-prime");
+  }
   entry.append(createElement({ text: "Prime factors" }));
   entry.append(createElement({ text: "Sum of digits" }));
-  container.append(entry);
+  containerElem.append(entry);
 
   secretElem = createElement({ text: "?", cssClass: "secret" });
-  evenElem = createElement({ text: "?" });
-  oddElem = createElement({ text: "?" });
+  evenOddElem = createElement({ text: "?" });
   primeElem = createElement({ text: "?" });
   primeFactorsElem = createElement({ cssClass: "prime-factors" });
   includedPrimeFactorsElem = createElement({ text: "✔: ?" });
@@ -63,15 +66,24 @@ export function createRevealedProperties() {
   sumOfDigitsElem.appendChild(excludedSumOfDigitsElem);
 
   const valuesEntry = createElement({ cssClass: "table-row" });
+  valuesEntry.append(createElement({ text: "" }));
   valuesEntry.append(secretElem);
-  valuesEntry.append(evenElem);
-  valuesEntry.append(oddElem);
-  valuesEntry.append(primeElem);
+  valuesEntry.append(evenOddElem);
+  if (globals.checkForPrimes) {
+    valuesEntry.append(primeElem);
+  }
   valuesEntry.append(primeFactorsElem);
   valuesEntry.append(sumOfDigitsElem);
-  container.append(valuesEntry);
+  containerElem.append(valuesEntry);
 
-  return container;
+  return containerElem;
+}
+
+export function registerGuessListElement(guessElement) {
+  if (!guessListElem) {
+    guessListElem = guessElement;
+    containerElem.append(guessElement);
+  }
 }
 
 export function updateRevealedProperties(result, guessProperties) {
@@ -85,8 +97,10 @@ export function updateRevealedProperties(result, guessProperties) {
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
     updateIsPrime(globals.xProperties.isPrime);
   } else {
-    if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
-      updateIsPrime(result.isPrime);
+    if (globals.checkForPrimes) {
+      if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
+        updateIsPrime(result.isPrime);
+      }
     }
 
     if (result.greatestCommonDivisor) {
@@ -109,8 +123,8 @@ export function updateRevealedProperties(result, guessProperties) {
 
 function updateEvenOddProperties(isEven) {
   isEvenKnown = true;
-  evenElem.innerText = isEven ? "✅" : "❌";
-  oddElem.innerText = !isEven ? "✅" : "❌";
+  evenOddElem.innerText = isEven ? "even" : "odd";
+  evenOddElem.classList.add("matching");
 }
 
 function updateIsPrime(isPrime) {
@@ -189,8 +203,8 @@ function updateConfirmedSumOfDigits(sumOfDigits) {
 }
 
 export function resetRevealedProperties() {
-  evenElem.innerText = "?";
-  oddElem.innerText = "?";
+  evenOddElem.innerText = "?";
+  evenOddElem.classList.remove("matching");
   primeElem.innerText = "?";
   secretElem.innerText = "?";
   currentGreatestKnownDivisorProperties = undefined;
