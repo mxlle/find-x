@@ -6,7 +6,7 @@ export function getLanguagesFromVoices(voices) {
       .map((voice) => {
         return getShortLanguageName(voice.lang);
       })
-      .filter((lang) => lang)
+      .filter((lang) => lang),
   );
 }
 
@@ -20,7 +20,7 @@ export function getDefaultLanguage(long = false) {
 
 export function getLanguagesWithoutDefault(
   languages,
-  defaultLanguage = getDefaultLanguage()
+  defaultLanguage = getDefaultLanguage(),
 ) {
   return languages.filter((lang) => lang !== defaultLanguage);
 }

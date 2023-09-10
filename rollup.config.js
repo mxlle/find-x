@@ -40,7 +40,7 @@ export default {
     copy({
       targets: [{ src: "src/manifest.json", dest: `${outputDir}` }],
     }),
-    !production && serve({ contentBase: outputDir, open: true }),
+    !production && serve({ contentBase: outputDir, open: true, port: "10002" }),
     !production && livereload(outputDir),
   ],
   watch: {

@@ -11,7 +11,9 @@
   text-align: center;
   transform: translateY(0);
   opacity: 1;
-  transition: transform 0.5s, opacity 0.5s;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
 
   &:not(.open) {
     transform: translateY(100%);
@@ -31,6 +33,12 @@
     &.is-overflowing {
       align-content: start;
     }
+  }
+
+  .icon-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
 }
 

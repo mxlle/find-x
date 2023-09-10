@@ -1,0 +1,16 @@
+.cheat-sheet {
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  gap: 1rem;
+  grid-auto-rows: min-content;
+  margin: 1rem auto;
+
+  .cheat-sheet-entry {
+    display: contents;
+
+    div {
+      white-space: nowrap;
+      text-align: left;
+    }
+  }
+}

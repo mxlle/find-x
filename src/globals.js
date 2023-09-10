@@ -2,7 +2,7 @@ const MIN_NUM = 10;
 const MAX_NUM = 99;
 
 const defaultGlobals = {
-  language: "de",
+  language: "en",
   minNum: MIN_NUM,
   maxNum: MAX_NUM,
   tries: 0,

@@ -48,6 +48,10 @@ export function createDialog(innerElement, submitButtonText, headerText) {
     dialog.appendChild(buttons);
   }
 
+  dialog.appendChild(
+    createButton({ text: "X", onClick: closeDialog, iconBtn: true }),
+  );
+
   document.body.appendChild(dialog);
 
   return {
@@ -63,7 +67,7 @@ export function createDialog(innerElement, submitButtonText, headerText) {
 
       dialogContent.classList.toggle(
         "is-overflowing",
-        dialogContent.scrollHeight > dialogContent.clientHeight
+        dialogContent.scrollHeight > dialogContent.clientHeight,
       );
 
       dialogContent.scrollTop = 0;

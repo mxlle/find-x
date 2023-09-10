@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  background: black;
+  background: #09162a;
   color: white;
   font-family: $font-family;
   user-select: none;
@@ -37,7 +37,7 @@ header {
   display: grid;
   box-sizing: border-box;
   padding: 0.5rem 1rem;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: min-content 1fr min-content min-content;
   align-items: center;
   gap: 1.5rem;
   width: 100%;
