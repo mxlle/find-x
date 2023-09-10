@@ -74,32 +74,31 @@ export function updateRevealedProperties(result, guessProperties) {
   if (globals.tries === 1) {
     updateEvenOddProperties(globals.xProperties.isEven);
   }
-  if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
-    if (result !== true) {
-      updateIsPrime(result.isPrime);
-    }
-  }
-
-  if (result.greatestCommonDivisor) {
-    updatedRevealedPrimeFactorsFromGcd(result.greatestCommonDivisor);
-  }
-  if (result.sumOfDigits) {
-    updateConfirmedSumOfDigits(result.sumOfDigits);
-  } else if (result !== true) {
-    updateRevealedExcludedSumOfDigits(guessProperties.sumOfDigits);
-  }
-
-  const excludedPrimeFactors = guessProperties.uniquePrimeFactors.filter(
-    (primeFactor) =>
-      !result.greatestCommonDivisor ||
-      result.greatestCommonDivisor % primeFactor !== 0,
-  );
-  updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
 
   if (result === true) {
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
     updateIsPrime(globals.xProperties.isPrime);
+  } else {
+    if (guessProperties.isPrime || (result.isEven && globals.minNum > 2)) {
+      updateIsPrime(result.isPrime);
+    }
+
+    if (result.greatestCommonDivisor) {
+      updatedRevealedPrimeFactorsFromGcd(result.greatestCommonDivisor);
+    }
+    if (result.sumOfDigits) {
+      updateConfirmedSumOfDigits(result.sumOfDigits);
+    } else if (result !== true) {
+      updateRevealedExcludedSumOfDigits(guessProperties.sumOfDigits);
+    }
+
+    const excludedPrimeFactors = guessProperties.uniquePrimeFactors.filter(
+      (primeFactor) =>
+        !result.greatestCommonDivisor ||
+        result.greatestCommonDivisor % primeFactor !== 0,
+    );
+    updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
   }
 }
 

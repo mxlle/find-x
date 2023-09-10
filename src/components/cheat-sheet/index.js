@@ -118,7 +118,10 @@ export function updatePossibleNumbers(possibleNumberElem) {
   }
 
   if (possibleNumberElem) {
-    possibleNumberElem.innerHTML = `Possibilities: ${possibleNumbers.length} (of originally ${originalPossibleNumbers.length})`;
+    const numNow = possibleNumbers.length;
+    const numOrig = originalPossibleNumbers.length;
+    const postfix = numNow === numOrig ? "" : ` (of originally ${numOrig})`;
+    possibleNumberElem.innerHTML = `Possibilities: ${numNow}${postfix}`;
   }
 }
 
