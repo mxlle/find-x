@@ -1,6 +1,6 @@
 .revealed-properties {
   display: grid;
-  grid-template-columns: repeat(5, min-content);
+  grid-template-columns: repeat(6, auto);
   gap: 1rem;
   grid-auto-rows: min-content;
   margin: 1rem auto;
@@ -13,14 +13,22 @@
   .table-row {
     display: contents;
 
-    div {
+    > div {
       text-align: left;
-    }
-  }
 
-  .header-row {
-    div {
-      white-space: nowrap;
+      &:first-child {
+        padding-left: 1rem;
+      }
+
+      &:last-child {
+        padding-right: 1rem;
+      }
+
+      &.secret {
+        font-weight: bold;
+        color: cyan;
+        padding-right: 1rem;
+      }
     }
   }
 
@@ -29,5 +37,13 @@
     div:nth-child(2) {
       opacity: 0.5;
     }
+  }
+}
+
+body.win {
+  .table-row > div.secret {
+    color: lime;
+    animation: scaleJump 1s;
+    animation-delay: 0.5s;
   }
 }

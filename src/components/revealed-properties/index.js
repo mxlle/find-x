@@ -4,7 +4,8 @@ import "./index.scss";
 import { globals } from "../../globals";
 import { getLeastCommonMultiple, getMathProperties } from "../../game-logic";
 
-let evenElem,
+let secretElem,
+  evenElem,
   oddElem,
   primeElem,
   primeFactorsElem,
@@ -38,6 +39,7 @@ export function createRevealedProperties() {
   container.append(header);
 
   const entry = createElement({ cssClass: "table-row header-row" });
+  entry.append(createElement({ text: "Secret", cssClass: "secret" }));
   entry.append(createElement({ text: "Even" }));
   entry.append(createElement({ text: "Odd" }));
   entry.append(createElement({ text: "Prime" }));
@@ -45,6 +47,7 @@ export function createRevealedProperties() {
   entry.append(createElement({ text: "Sum of digits" }));
   container.append(entry);
 
+  secretElem = createElement({ text: "?", cssClass: "secret" });
   evenElem = createElement({ text: "?" });
   oddElem = createElement({ text: "?" });
   primeElem = createElement({ text: "?" });
@@ -60,6 +63,7 @@ export function createRevealedProperties() {
   sumOfDigitsElem.appendChild(excludedSumOfDigitsElem);
 
   const valuesEntry = createElement({ cssClass: "table-row" });
+  valuesEntry.append(secretElem);
   valuesEntry.append(evenElem);
   valuesEntry.append(oddElem);
   valuesEntry.append(primeElem);
@@ -76,6 +80,7 @@ export function updateRevealedProperties(result, guessProperties) {
   }
 
   if (result === true) {
+    secretElem.innerText = globals.x;
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
     updateIsPrime(globals.xProperties.isPrime);
@@ -187,6 +192,8 @@ export function resetRevealedProperties() {
   evenElem.innerText = "?";
   oddElem.innerText = "?";
   primeElem.innerText = "?";
+  secretElem.innerText = "?";
+  currentGreatestKnownDivisorProperties = undefined;
   knownExcludedPrimeFactors = [];
   knownExcludedSumOfDigits = [];
   isSumOfDigitsMatched = false;
