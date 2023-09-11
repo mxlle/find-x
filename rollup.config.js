@@ -4,7 +4,7 @@ import livereload from "rollup-plugin-livereload";
 import nodeResolve from "rollup-plugin-node-resolve";
 import serve from "rollup-plugin-serve";
 import styles from "rollup-plugin-styles";
-// import { terser } from "rollup-plugin-terser";
+import { terser } from "rollup-plugin-terser";
 import copy from "rollup-plugin-copy";
 
 const production = !process.env.ROLLUP_WATCH;
@@ -21,18 +21,18 @@ export default {
     nodeResolve(),
     commonjs(),
     styles(),
-    // production &&
-    //   terser({
-    //     mangle: {
-    //       properties: {
-    //         keep_quoted: true,
-    //       },
-    //     },
-    //     compress: {
-    //       booleans_as_integers: true,
-    //       drop_console: true,
-    //     },
-    //   }),
+    production &&
+      terser({
+        // mangle: {
+        //   properties: {
+        //     keep_quoted: true,
+        //   },
+        // },
+        compress: {
+          booleans_as_integers: true,
+          drop_console: true,
+        },
+      }),
     htmlBundle({
       template: "src/index.html",
       target: `${outputDir}/index.html`,
