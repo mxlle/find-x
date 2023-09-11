@@ -24,10 +24,12 @@
 
   .matching {
     color: lime;
+    font-weight: bold;
   }
 
   .not-matching {
     color: red;
+    text-decoration: line-through;
   }
 
   .match-unknown {
@@ -56,11 +58,9 @@
     }
   }
 
-  .prime-factors,
-  .sum-of-digits {
-    div:nth-child(2) {
-      opacity: 0.5;
-    }
+  .not-matching-subtle {
+    color: #aaa;
+    text-decoration: line-through;
   }
 }
 

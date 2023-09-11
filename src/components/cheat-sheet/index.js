@@ -5,6 +5,7 @@ import "./index.scss";
 import { globals } from "../../globals";
 import { getCurrentlyRevealedProperties } from "../revealed-properties";
 import { getArrayIntersection } from "../../utils/array-utils";
+import { getTranslation, TranslationKey } from "../../translations";
 
 let possibleNumbers = [];
 let originalPossibleNumbers = [];
@@ -43,16 +44,11 @@ export function updatePossibleNumbers(possibleNumberElem) {
 
     possibleNumberProperties = possibleNumberProperties.filter(
       (numProperties) => {
-        function debugLog(text) {
-          console.debug(text, numProperties.value);
-        }
-
         if (greatestKnownDivisor) {
           const isDivisorMatching =
             numProperties.value % greatestKnownDivisor === 0;
 
           if (!isDivisorMatching) {
-            debugLog("divisor not matching");
             return false;
           }
         }
@@ -62,7 +58,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
             numProperties.sumOfDigits === globals.xProperties.sumOfDigits;
 
           if (!isSumMatching) {
-            debugLog("sum not matching");
             return false;
           }
         }
@@ -72,7 +67,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
             numProperties.isPrime === globals.xProperties.isPrime;
 
           if (!isPrimeMatching) {
-            debugLog("prime not matching");
             return false;
           }
         }
@@ -82,7 +76,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
         );
 
         if (!isSumOfDigitsPossible) {
-          debugLog("sum not possible");
           return false;
         }
 
@@ -94,7 +87,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
           const isPrimeFactorsPossible = !intersectWithExcluded.length;
 
           if (!isPrimeFactorsPossible) {
-            debugLog("prime factors not possible");
             return false;
           }
         }
@@ -102,7 +94,6 @@ export function updatePossibleNumbers(possibleNumberElem) {
         const isEvenOddMatching =
           globals.xProperties.isEven === numProperties.isEven;
         if (!isEvenOddMatching) {
-          debugLog("even/odd not matching");
           return false;
         }
 
@@ -120,8 +111,13 @@ export function updatePossibleNumbers(possibleNumberElem) {
   if (possibleNumberElem) {
     const numNow = possibleNumbers.length;
     const numOrig = originalPossibleNumbers.length;
-    const postfix = numNow === numOrig ? "" : ` (of originally ${numOrig})`;
-    possibleNumberElem.innerHTML = `Possibilities: ${numNow}${postfix}`;
+    const postfix =
+      numNow === numOrig
+        ? ""
+        : ` (${getTranslation(TranslationKey.POSSIBILITIES_OF, numOrig)})`;
+    possibleNumberElem.innerHTML = `${getTranslation(
+      TranslationKey.POSSIBILITIES,
+    )}: ${numNow}${postfix}`;
   }
 }
 
@@ -129,13 +125,15 @@ export function createCheatSheet(shouldSortByFactorization) {
   const container = createElement({ cssClass: "cheat-sheet" });
 
   const entry = createElement({ cssClass: "cheat-sheet-entry" });
-  entry.append(createElement({ text: "Number" }));
+  entry.append(createElement({ text: getTranslation(TranslationKey.NUMBER) }));
   entry.append(
     createElement({
-      text: "Prime factorization",
+      text: getTranslation(TranslationKey.PRIME_FACTORIZATION),
     }),
   );
-  entry.append(createElement({ text: "Sum of digits" }));
+  entry.append(
+    createElement({ text: getTranslation(TranslationKey.SUM_OF_DIGITS) }),
+  );
   container.append(entry);
 
   if (!possibleNumberProperties) {

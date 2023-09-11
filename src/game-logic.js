@@ -5,9 +5,10 @@ import {
   getArrayIntersection,
   removeDuplicates,
 } from "./utils/array-utils";
-import { getTranslation, TranslationKey } from "./translations";
 
 export const START_DIGIT_HINT = 15;
+export const LOSE_STAR_TRIES = [7, 13, 30, 42];
+export const WIN_STAR_TRIES = [13, 42];
 
 export function newGame() {
   resetGlobals();
@@ -168,7 +169,7 @@ function mathPropertiesToString(properties) {
   `;
 }
 
-export function mathPropertiesToStringArray(properties) {
+/*export function mathPropertiesToStringArray(properties) {
   const {
     greatestCommonDivisor,
     isPrime,
@@ -226,4 +227,4 @@ export function mathPropertiesToStringArray(properties) {
   }
 
   return stringArray;
-}
+}*/

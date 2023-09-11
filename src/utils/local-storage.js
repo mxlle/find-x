@@ -1,7 +1,7 @@
-const LOCAL_STORAGE_PREFIX = "findX";
+const LOCAL_STORAGE_PREFIX = "mxlle-13th";
 
 export const LocalStorageKey = {
-  HIGH_SCORE: "highScore",
+  STAR_MAP: "starMap",
 };
 
 export function setLocalStorageItem(key, value) {

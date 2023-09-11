@@ -5,7 +5,9 @@ import {
   evaluateGuess,
   getMathProperties,
   initGameData,
+  LOSE_STAR_TRIES,
   newGame,
+  WIN_STAR_TRIES,
 } from "./game-logic";
 import { createNumberInputComponent } from "./components/number-input";
 import { globals } from "./globals";
@@ -28,6 +30,12 @@ import {
   resetRevealedProperties,
   updateRevealedProperties,
 } from "./components/revealed-properties";
+import {
+  createGlobalStarsComponent,
+  getStarsForGameField,
+  updateStarMap,
+} from "./components/stars";
+import { PubSubEvent, pubSubService } from "./utils/pub-sub-service";
 
 let submitButton, configDialog, cheatSheetDialog, possibleNumberElem;
 
@@ -40,6 +48,7 @@ function onNewGameClick() {
   if (cheatSheetDialog) {
     cheatSheetDialog.recreateDialogContent(createCheatSheet());
   }
+  pubSubService.publish(PubSubEvent.NEW_GAME);
   document.body.classList.remove("win");
   submitButton.innerHTML = getTranslation(TranslationKey.SUBMIT);
 }
@@ -77,6 +86,7 @@ function init() {
   header.append(
     createButton({ text: "🔄", onClick: onNewGameClick, iconBtn: true }),
   );
+  header.append(createGlobalStarsComponent());
   header.append(
     createElement({
       text: `${getTranslation(TranslationKey.PROMPT)} ${getTranslation(
@@ -133,6 +143,12 @@ function init() {
     if (result === true) {
       submitButton.innerHTML = getTranslation(TranslationKey.PLAY_AGAIN);
       document.body.classList.add("win");
+      if (WIN_STAR_TRIES.includes(globals.tries)) {
+        pubSubService.publish(PubSubEvent.STARS_CHANGED, 1);
+      }
+      updateStarMap();
+    } else if (LOSE_STAR_TRIES.includes(globals.tries)) {
+      pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
     }
     /* else if (globals.tries === START_DIGIT_HINT) {
       addDigitHint();
@@ -160,6 +176,7 @@ function init() {
   updatePossibleNumbers(possibleNumberElem);
 
   document.body.appendChild(header);
+  document.body.appendChild(getStarsForGameField());
   document.body.appendChild(numberInput.container);
   document.body.appendChild(possibleNumberElem);
   document.body.appendChild(submitButton);

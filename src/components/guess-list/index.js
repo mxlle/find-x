@@ -26,7 +26,9 @@ export function addGuessListEntry(guessProperties, result, isPrimeKnown) {
     entry.append(resultText);
   } else {
     const evenOddElem = createElement({
-      text: guessProperties.isEven ? "even" : "odd",
+      text: guessProperties.isEven
+        ? getTranslation(TranslationKey.EVEN)
+        : getTranslation(TranslationKey.ODD),
       cssClass: result.isEven !== undefined ? "matching" : "not-matching",
     });
 
@@ -74,14 +76,14 @@ export function addGuessListEntry(guessProperties, result, isPrimeKnown) {
   prependWithAnimation(entry);
 }
 
-export function addDigitHint() {
+/*export function addDigitHint() {
   const digitHint = createElement({
     cssClass: "digit-hint",
     text: getTranslation(TranslationKey.COMMON_DIGITS_HINT),
   });
 
   prependWithAnimation(digitHint);
-}
+}*/
 
 function prependWithAnimation(element) {
   element.classList.add("hidden");

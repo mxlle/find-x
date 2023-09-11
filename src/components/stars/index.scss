@@ -1,7 +1,9 @@
 .stars {
   display: flex;
   justify-content: center;
-  transition: transform 0.3s, color 0.3s;
+  transition:
+    transform 0.3s,
+    color 0.3s;
 
   &.zero {
     opacity: 0.2;
@@ -9,6 +11,28 @@
 
   &.new-star {
     transform: scale(3);
+    color: lime;
+  }
+
+  &.lost-star {
+    transform: scale(3);
+    color: red;
+  }
+}
+
+body.win {
+  .stars {
+    color: gold;
+  }
+}
+
+.global-stars {
+  transition:
+    transform 1s,
+    color 1s;
+
+  &.new-star {
+    transform: scale(2);
     color: gold;
   }
 }
