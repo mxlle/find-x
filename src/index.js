@@ -42,6 +42,7 @@ import { sleep } from "./utils/promise-utils";
 let submitButton,
   configDialog,
   cheatSheetDialog,
+  rulesDialog,
   possibleNumberElem,
   cheatSheetBtn;
 
@@ -92,6 +93,24 @@ async function openCheatSheet() {
   }
 
   cheatSheetDialog.open();
+}
+
+function openRules() {
+  if (!rulesDialog) {
+    const textElem = createElement({
+      cssClass: "rules-text",
+    });
+
+    textElem.innerHTML = getTranslation(TranslationKey.RULES_TEXT);
+
+    rulesDialog = createDialog(
+      textElem,
+      undefined,
+      getTranslation(TranslationKey.RULES),
+    );
+  }
+
+  rulesDialog.open();
 }
 
 function init() {
@@ -210,12 +229,21 @@ function init() {
 
   updatePossibleNumbers(possibleNumberElem);
 
+  const rulesBtn = createButton({
+    text: "❓ " + getTranslation(TranslationKey.RULES),
+    onClick: () => {
+      openRules();
+    },
+    iconBtn: true,
+  });
+
   document.body.appendChild(header);
   document.body.appendChild(numberInput.container);
   document.body.appendChild(submitButton);
   document.body.appendChild(getStarsForGameField());
   document.body.appendChild(possibleNumberContainer);
   document.body.appendChild(revealedProperties);
+  document.body.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }
 

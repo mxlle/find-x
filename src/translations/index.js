@@ -30,6 +30,8 @@ export const TranslationKey = {
   SECRET: 26,
   EVEN_ODD: 27,
   SECRET_PROPERTIES: 28,
+  RULES: 29,
+  RULES_TEXT: 30,
 };
 
 const Translation = {
@@ -148,6 +150,50 @@ const Translation = {
   [TranslationKey.SECRET_PROPERTIES]: {
     en: "Properties of the secret",
     de: "Eigenschaften der Geheimzahl",
+  },
+  [TranslationKey.RULES]: {
+    en: "Rules",
+    de: "Regeln",
+  },
+  [TranslationKey.RULES_TEXT]: {
+    en: `
+<p>The game is about finding a <strong>secret number</strong>. </p>
+
+<p>The <strong>range</strong> is displayed in the title and depends on the selected difficulty. <br/>
+Enter a guess in the input field and submit it by pressing the "Submit" button or the "Enter" key. </p>
+
+<p>The game will then tell you if your guess is correct or not. <br/>
+If your guess is not correct, the game will tell you <strong>some properties of the secret number that match the current guess. </strong><br/>
+You can use these properties to find the secret number.  </p>
+
+<p>There is also a <strong>cheat sheet</strong> that shows you all numbers that are still possible. </p>
+
+<p>In each game you can score <strong>up to 5 stars</strong>. Stars get lost you need too many guesses or use the cheat sheet. </p>
+
+<p>The game ends when you have found the secret number. <br/>
+You can then play again by pressing the "Play again" button.  </p>
+
+<p><strong>Have fun!</strong> </p>
+    `,
+    de: `
+<p>Im Spiel geht es darum, eine <strong>geheime Zahl</strong> zu finden.</p>
+
+<p>Der <strong>Zahlenbereich</strong> wird im Titel angezeigt und hängt von der ausgewählten Schwierigkeit ab.<br/>
+Gib einen Rateversuch in das Eingabefeld ein und bestätige ihn durch Drücken der Schaltfläche "Absenden" oder der Eingabetaste. </p>
+
+<p>Das Spiel sagt dir dann, ob dein Versuch richtig ist oder nicht.<br/>
+Wenn dein Versuch nicht richtig ist, werden <strong>einige Eigenschaften der Geheimzahl angezeigt, die mit dem aktuellen Versuch übereinstimmen.</strong><br/>
+Du kannst diese Eigenschaften verwenden, um die geheime Zahl zu finden. </p>
+
+<p>Es gibt auch einen <strong>Spickzettel</strong>, der dir alle Zahlen anzeigt, die noch möglich sind. </p>
+
+<p>In jedem Spiel kannst du <strong>bis zu 5 Sterne</strong> sammeln. Sterne gehen verloren, wenn du zu viele Versuche brauchst oder den Spickzettel benutzt. </p>
+
+<p>Das Spiel endet, wenn du die geheime Zahl gefunden hast.<br/>
+Du kannst dann erneut spielen, indem du auf die Schaltfläche "Nochmal spielen" klickst. </p>
+
+<p><strong>Viel Spaß!</strong> </p>
+    `,
   },
 };
 
