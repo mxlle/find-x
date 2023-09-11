@@ -114,6 +114,7 @@ export function updateRevealedProperties(result, guessProperties) {
 
   if (result === true) {
     secretElem.innerText = globals.x;
+    currentGreatestKnownDivisorProperties = globals.xProperties;
     updateRevealedPrimeFactors(globals.xProperties.primeFactorization, true);
     updateConfirmedSumOfDigits(globals.xProperties.sumOfDigits);
     updateIsPrime(globals.xProperties.isPrime);
