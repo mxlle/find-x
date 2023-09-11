@@ -3,7 +3,7 @@
   grid-template-columns: repeat(5, auto);
   gap: 1rem;
   grid-auto-rows: min-content;
-  margin: 1rem auto;
+  margin: 0 auto;
 
   &.has-prime {
     grid-template-columns: repeat(6, auto);
