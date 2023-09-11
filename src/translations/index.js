@@ -158,6 +158,8 @@ export function getTranslation(key, ...args) {
 
   // language = "de";
 
+  document.documentElement.setAttribute("lang", language);
+
   if (args.length > 0) {
     return Translation[key][language].replace("{0}", args[0]);
   }
