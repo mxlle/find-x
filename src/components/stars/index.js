@@ -137,5 +137,5 @@ export function setCurrentGlobalStars() {
 
 function updateGlobalStarsElement() {
   const totalPossibleStars = (globals.maxNum - globals.minNum + 1) * maxStars;
-  globalStarsElem.innerHTML = `${FULL_STAR} ${globalStars}/${totalPossibleStars}`;
+  globalStarsElem.innerHTML = `⭐️ ${globalStars}/${totalPossibleStars} 🏆`;
 }

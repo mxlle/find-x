@@ -169,7 +169,7 @@ You can use these properties to find the secret number.  </p>
 
 <p>There is also a <strong>cheat sheet</strong> that shows you all numbers that are still possible. </p>
 
-<p>In each game you can score <strong>up to 5 stars</strong>. Stars get lost you need too many guesses or use the cheat sheet. </p>
+<p>In each game you can score <strong>up to 5 stars</strong>. Stars get lost if you need too many guesses or use the cheat sheet. </p>
 
 <p>The game ends when you have found the secret number. <br/>
 You can then play again by pressing the "Play again" button.  </p>

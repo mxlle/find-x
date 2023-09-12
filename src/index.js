@@ -146,7 +146,6 @@ function init() {
       }`,
     }),
   );
-  header.append(createGlobalStarsComponent());
   header.append(
     createButton({ text: "⚙️", onClick: openConfig, iconBtn: true }),
   );
@@ -230,6 +229,7 @@ function init() {
   cheatSheetBtn = createButton({
     text: `👀 ${getTranslation(TranslationKey.CHEAT_SHEET)}`,
     onClick: openCheatSheet,
+    iconBtn: true,
   });
   cheatSheetBtn.classList.add("cheat-sheet-btn");
   cheatSheetBtn.appendChild(
@@ -245,11 +245,11 @@ function init() {
   updatePossibleNumbers(possibleNumberElem);
 
   const resultsBtn = createButton({
-    text: getTranslation(TranslationKey.STAR_CHART),
     onClick: openStarChart,
     iconBtn: true,
   });
   resultsBtn.classList.add("results-btn");
+  resultsBtn.append(createGlobalStarsComponent());
 
   const rulesBtn = createButton({
     text: "❓ " + getTranslation(TranslationKey.RULES),
@@ -260,17 +260,22 @@ function init() {
   });
   rulesBtn.classList.add("rules-btn");
 
+  const btnContainer = createElement({ cssClass: "btn-container" });
+  btnContainer.append(possibleNumberContainer);
+  const btnContainer2 = createElement({ cssClass: "btn-container" });
+  btnContainer2.append(resultsBtn);
+  btnContainer2.append(rulesBtn);
+  btnContainer.append(btnContainer2);
+
   const mainContainer = createElement({ cssClass: "main-container" });
   document.body.appendChild(mainContainer);
 
   mainContainer.appendChild(header);
+  mainContainer.appendChild(btnContainer);
+  mainContainer.appendChild(getStarsForGameField());
   mainContainer.appendChild(numberInput.container);
   mainContainer.appendChild(submitButton);
-  mainContainer.appendChild(getStarsForGameField());
-  mainContainer.appendChild(possibleNumberContainer);
   mainContainer.appendChild(revealedProperties);
-  mainContainer.appendChild(resultsBtn);
-  mainContainer.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }
 
