@@ -30,12 +30,19 @@ body {
   font-family: $font-family;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  hyphens: auto;
+  overflow: hidden;
+}
+
+.main-container {
   text-align: center;
   display: grid;
   gap: 1.5rem;
   grid-auto-rows: min-content;
   justify-items: center;
-  hyphens: auto;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
 header {
@@ -96,17 +103,23 @@ input {
   box-sizing: border-box;
   font-size: 2rem;
   width: 100%;
-  background: #222;
-  border: 1px solid #555;
+  background: #152134;
+  border: 1px solid #213345;
   color: white;
-  text-align: right;
+  text-align: center;
+  border-radius: 4px;
 
   &::placeholder {
     font-weight: 200;
     font-size: 0.75em;
-    color: #555;
-    text-align: left;
+    color: #213345;
     padding: 0.5rem;
+    font-style: italic;
+  }
+
+  &:focus-within {
+    outline: none;
+    border-color: cyan;
   }
 }
 
@@ -115,13 +128,13 @@ label {
   font-family: $font-family;
   cursor: pointer;
   color: white;
-  border: 1px solid #ccc;
-  background-color: rgba(white, 0.1);
+  border: 1px solid rgba(white, 0.1);
+  background-color: rgba(white, 0.06);
   padding: 1rem 2rem;
   border-radius: $border-radius;
 
   @include hover {
-    background-color: rgba(white, 0.2);
+    background-color: rgba(white, 0.1);
   }
 
   &.primary-btn {
@@ -164,16 +177,20 @@ button.icon-btn {
 .config-container {
   display: grid;
   grid-auto-rows: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 2rem;
   button {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }
 
 .possible-numbers {
   font-style: italic;
   font-size: 0.7em;
+}
+
+.rules-btn {
+  margin-bottom: 2rem;
 }
 
 .rules-text {
@@ -185,4 +202,8 @@ button.icon-btn {
   strong {
     color: cyan;
   }
+}
+
+body:not(.has-stars) .results-btn {
+  display: none;
 }

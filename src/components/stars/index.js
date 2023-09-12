@@ -13,7 +13,7 @@ import { globals } from "../../globals";
 const EMPTY_STAR = "☆";
 export const FULL_STAR = "★";
 const zeroClass = "zero";
-const maxStars = 5;
+export const maxStars = 5;
 let currentStars = maxStars;
 let globalStars = 0;
 let globalStarsElem;
@@ -69,8 +69,43 @@ export function createGlobalStarsComponent() {
   return globalStarsElem;
 }
 
-function getStarMap() {
-  const starMap = getLocalStorageItem(LocalStorageKey.STAR_MAP);
+export function createStarChartComponent() {
+  const starChart = createElement({
+    cssClass: "star-chart",
+  });
+
+  const notYetReachedNumbers = [];
+
+  const starMap = getStarMap();
+  for (let i = globals.minNum; i <= globals.maxNum; i++) {
+    const achievedStars = starMap[i];
+
+    const starContainer = createElement({
+      cssClass: "star-container",
+    });
+    starContainer.appendChild(createElement({ text: i, cssClass: "number" }));
+    starContainer.appendChild(createStarComponent(achievedStars ?? 0));
+
+    if (achievedStars === undefined) {
+      notYetReachedNumbers.push(starContainer);
+    } else {
+      starChart.appendChild(starContainer);
+    }
+  }
+
+  for (const starContainer of notYetReachedNumbers) {
+    starChart.appendChild(starContainer);
+  }
+
+  return starChart;
+}
+
+function getStarMapKey() {
+  return `${LocalStorageKey.STAR_MAP}-${globals.minNum}-${globals.maxNum}`;
+}
+
+export function getStarMap() {
+  const starMap = getLocalStorageItem(getStarMapKey());
   return starMap ? JSON.parse(starMap) : {};
 }
 
@@ -79,7 +114,7 @@ export function updateStarMap() {
   const currentStarValue = starMap[globals.x] ?? 0;
   if (currentStars > currentStarValue) {
     starMap[globals.x] = Math.min(currentStars, maxStars);
-    setLocalStorageItem(LocalStorageKey.STAR_MAP, JSON.stringify(starMap));
+    setLocalStorageItem(getStarMapKey(), JSON.stringify(starMap));
     setCurrentGlobalStars();
     globalStarsElem.classList.toggle("new-star", true);
     setTimeout(() => globalStarsElem.classList.toggle("new-star", false), 1000);
@@ -92,10 +127,12 @@ export function setCurrentGlobalStars() {
   for (let i = globals.minNum; i <= globals.maxNum; i++) {
     tempStars += starMap[i] ?? 0;
   }
-  console.log("tempStars", tempStars, starMap);
+
   globalStars = tempStars;
 
   updateGlobalStarsElement();
+
+  document.body.classList.toggle("has-stars", globalStars > 0);
 }
 
 function updateGlobalStarsElement() {

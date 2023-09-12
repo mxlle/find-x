@@ -32,6 +32,7 @@ import {
 } from "./components/revealed-properties";
 import {
   createGlobalStarsComponent,
+  createStarChartComponent,
   FULL_STAR,
   getStarsForGameField,
   updateStarMap,
@@ -43,6 +44,7 @@ let submitButton,
   configDialog,
   cheatSheetDialog,
   rulesDialog,
+  starChartDialog,
   possibleNumberElem,
   cheatSheetBtn;
 
@@ -113,6 +115,18 @@ function openRules() {
   rulesDialog.open();
 }
 
+function openStarChart() {
+  if (!starChartDialog) {
+    starChartDialog = createDialog(
+      createStarChartComponent(),
+      undefined,
+      getTranslation(TranslationKey.STAR_CHART),
+    );
+  }
+
+  starChartDialog.open();
+}
+
 function init() {
   initGameData();
 
@@ -181,6 +195,7 @@ function init() {
         pubSubService.publish(PubSubEvent.STARS_CHANGED, 1);
       }
       updateStarMap();
+      starChartDialog?.recreateDialogContent(createStarChartComponent());
     } else if (LOSE_STAR_TRIES.includes(globals.tries)) {
       pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
     }
@@ -229,6 +244,13 @@ function init() {
 
   updatePossibleNumbers(possibleNumberElem);
 
+  const resultsBtn = createButton({
+    text: getTranslation(TranslationKey.STAR_CHART),
+    onClick: openStarChart,
+    iconBtn: true,
+  });
+  resultsBtn.classList.add("results-btn");
+
   const rulesBtn = createButton({
     text: "❓ " + getTranslation(TranslationKey.RULES),
     onClick: () => {
@@ -236,14 +258,19 @@ function init() {
     },
     iconBtn: true,
   });
+  rulesBtn.classList.add("rules-btn");
 
-  document.body.appendChild(header);
-  document.body.appendChild(numberInput.container);
-  document.body.appendChild(submitButton);
-  document.body.appendChild(getStarsForGameField());
-  document.body.appendChild(possibleNumberContainer);
-  document.body.appendChild(revealedProperties);
-  document.body.appendChild(rulesBtn);
+  const mainContainer = createElement({ cssClass: "main-container" });
+  document.body.appendChild(mainContainer);
+
+  mainContainer.appendChild(header);
+  mainContainer.appendChild(numberInput.container);
+  mainContainer.appendChild(submitButton);
+  mainContainer.appendChild(getStarsForGameField());
+  mainContainer.appendChild(possibleNumberContainer);
+  mainContainer.appendChild(revealedProperties);
+  mainContainer.appendChild(resultsBtn);
+  mainContainer.appendChild(rulesBtn);
   registerGuessListElement(guessList);
 }
 
@@ -262,9 +289,9 @@ function getConfigContainer() {
 
   container.append(
     createButton({
-      text: getTranslation(TranslationKey.CENTURY) + " (1200-1299)",
+      text: getTranslation(TranslationKey.CENTURY) + " (1201-1300)",
       onClick: () => {
-        closeAndReload(1200, 1299);
+        closeAndReload(1201, 1300);
       },
     }),
   );

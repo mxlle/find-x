@@ -32,6 +32,7 @@ export const TranslationKey = {
   SECRET_PROPERTIES: 28,
   RULES: 29,
   RULES_TEXT: 30,
+  STAR_CHART: 31,
 };
 
 const Translation = {
@@ -194,6 +195,10 @@ Du kannst dann erneut spielen, indem du auf die Schaltfläche "Nochmal spielen" 
 
 <p><strong>Viel Spaß!</strong> </p>
     `,
+  },
+  [TranslationKey.STAR_CHART]: {
+    en: "🏆 Your results ⭐️",
+    de: "🏆 Deine Ergebnisse ⭐️",
   },
 };
 

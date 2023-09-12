@@ -143,7 +143,6 @@ export function createCheatSheet(shouldSortByFactorization) {
   }
 
   const listOfNumbers = [...possibleNumberProperties];
-  const sumOfDigitsDistribution = {};
 
   if (shouldSortByFactorization) {
     listOfNumbers.sort(
@@ -153,12 +152,6 @@ export function createCheatSheet(shouldSortByFactorization) {
 
   for (let i = 0; i < listOfNumbers.length; i++) {
     const properties = listOfNumbers[i];
-
-    if (!sumOfDigitsDistribution[properties.sumOfDigits]) {
-      sumOfDigitsDistribution[properties.sumOfDigits] = 1;
-    } else {
-      sumOfDigitsDistribution[properties.sumOfDigits]++;
-    }
 
     const entry = createElement({ cssClass: "cheat-sheet-entry" });
     entry.append(createElement({ text: properties.value }));
@@ -170,8 +163,6 @@ export function createCheatSheet(shouldSortByFactorization) {
     entry.append(createElement({ text: properties.sumOfDigits }));
     container.append(entry);
   }
-
-  console.log(sumOfDigitsDistribution);
 
   return container;
 }

@@ -5,6 +5,7 @@ import {
   getArrayIntersection,
   removeDuplicates,
 } from "./utils/array-utils";
+import { getStarMap, maxStars } from "./components/stars";
 
 export const START_DIGIT_HINT = 15;
 export const LOSE_STAR_TRIES = [7, 13, 30, 42];
@@ -16,8 +17,25 @@ export function newGame() {
 }
 
 export function initGameData() {
-  globals.x = getRandomIntFromInterval(globals.minNum, globals.maxNum);
+  globals.x = getWeightedRandomInt();
   globals.xProperties = getMathProperties(globals.x);
+}
+
+export function getWeightedRandomInt() {
+  const starMap = getStarMap();
+  const weightedNumbers = [];
+  for (let i = globals.minNum; i <= globals.maxNum; i++) {
+    const achievedStars = starMap[i] ?? 0;
+    let amountToPush = Math.max(1, maxStars - achievedStars);
+    amountToPush = Math.round(amountToPush * 0.5); // not as much weight
+    for (let j = 0; j < amountToPush; j++) {
+      weightedNumbers.push(i);
+    }
+  }
+
+  return weightedNumbers[
+    getRandomIntFromInterval(0, weightedNumbers.length - 1)
+  ];
 }
 
 export function evaluateGuess(guess, guessProperties) {
