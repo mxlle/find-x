@@ -48,7 +48,7 @@ let submitButton,
   possibleNumberElem,
   cheatSheetBtn;
 
-let isCheatSheetActivated = false;
+let isCheatSheetActivated = true; // have this activated by default for now
 
 function onNewGameClick() {
   newGame();
@@ -239,6 +239,9 @@ function init() {
       tag: "span",
     }),
   );
+  if (isCheatSheetActivated) {
+    cheatSheetBtn.classList.add("unlocked");
+  }
 
   possibleNumberContainer.append(cheatSheetBtn);
 

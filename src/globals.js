@@ -1,5 +1,5 @@
-const MIN_NUM = 1201;
-const MAX_NUM = 1300;
+const MIN_NUM = 10;
+const MAX_NUM = 99;
 
 const defaultGlobals = {
   language: "en",
@@ -19,7 +19,7 @@ export function resetGlobals() {
   globals.maxNum = Math.max(getNumFromParam("max", MAX_NUM), 9);
   globals.minNum = Math.max(
     Math.min(getNumFromParam("min", MIN_NUM), globals.maxNum),
-    1,
+    1
   );
 }
 
