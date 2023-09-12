@@ -78,7 +78,7 @@ header {
     display: flex;
     gap: 1rem;
     font-style: italic;
-    font-size: 0.7em;
+    font-size: 0.9em;
     align-items: center;
   }
 }
@@ -181,7 +181,7 @@ label {
 button.icon-btn {
   @extend %no-bg-btn;
   padding: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.9em;
   color: #ccc;
   transform: scale(1);
   transition: transform 0.3s;
