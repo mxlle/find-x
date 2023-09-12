@@ -195,16 +195,25 @@ function init() {
       }
       updateStarMap();
       starChartDialog?.recreateDialogContent(createStarChartComponent());
-    } else if (LOSE_STAR_TRIES.includes(globals.tries)) {
-      pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
+    } else {
+      submitButton.disabled = true;
+
+      if (LOSE_STAR_TRIES.includes(globals.tries)) {
+        pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
+      }
     }
     /* else if (globals.tries === START_DIGIT_HINT) {
       addDigitHint();
     }*/
   }
 
-  numberInput.input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
+  numberInput.input.addEventListener("keyup", (event) => {
+    const isValid =
+      !numberInput.input.validity.rangeOverflow &&
+      !numberInput.input.validity.rangeUnderflow;
+    submitButton.disabled = !isValid;
+
+    if (isValid && event.key === "Enter") {
       onSubmit();
     }
   });
@@ -216,6 +225,7 @@ function init() {
     },
   });
   submitButton.classList.add("submit-btn");
+  submitButton.disabled = true;
 
   const revealedProperties = createRevealedProperties();
 
