@@ -101,7 +101,10 @@ header {
 .cheat-sheet-btn {
   padding: 0.25rem 0.5rem;
   margin: 0.5rem;
+}
 
+.cheat-sheet-btn,
+.filter-btn {
   .cheat-lock {
     margin-left: 0.5rem;
     display: inline-block;
@@ -211,8 +214,4 @@ button.icon-btn {
   strong {
     color: cyan;
   }
-}
-
-body:not(.has-stars) .results-btn {
-  display: none;
 }

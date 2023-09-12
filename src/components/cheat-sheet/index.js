@@ -1,4 +1,4 @@
-import { createElement } from "../../utils/html-utils";
+import { createButton, createElement } from "../../utils/html-utils";
 import { getMathProperties } from "../../game-logic";
 
 import "./index.scss";
@@ -6,15 +6,25 @@ import { globals } from "../../globals";
 import { getCurrentlyRevealedProperties } from "../revealed-properties";
 import { getArrayIntersection } from "../../utils/array-utils";
 import { getTranslation, TranslationKey } from "../../translations";
+import { PubSubEvent, pubSubService } from "../../utils/pub-sub-service";
+import { FULL_STAR } from "../stars";
 
 let possibleNumbers = [];
 let originalPossibleNumbers = [];
 let possibleNumberProperties = [];
+let originalPossibleNumberProperties = [];
+let isFilterUnlocked = false;
+let isFilterActivated = false;
+let filterButton;
 
 export function resetPossibleNumbers() {
   possibleNumbers = [];
   originalPossibleNumbers = [];
   possibleNumberProperties = [];
+  originalPossibleNumberProperties = [];
+  isFilterUnlocked = false;
+  isFilterActivated = false;
+  filterButton.classList.remove("unlocked");
 }
 
 export function updatePossibleNumbers(possibleNumberElem) {
@@ -28,6 +38,7 @@ export function updatePossibleNumbers(possibleNumberElem) {
     possibleNumberProperties = possibleNumbers.map((num) =>
       getMathProperties(num),
     );
+    originalPossibleNumberProperties = [...possibleNumberProperties];
   }
 
   const {
@@ -124,6 +135,53 @@ export function updatePossibleNumbers(possibleNumberElem) {
 export function createCheatSheet(shouldSortByFactorization) {
   const container = createElement({ cssClass: "cheat-sheet" });
 
+  if (possibleNumbers.length < originalPossibleNumbers.length) {
+    filterButton = createButton({
+      text: "",
+      onClick: () => {
+        if (!isFilterUnlocked) {
+          isFilterUnlocked = true;
+          filterButton.classList.add("unlocked");
+          pubSubService.publish(PubSubEvent.STARS_CHANGED, -1);
+        }
+
+        isFilterActivated = !isFilterActivated;
+        document.body.classList.toggle("filter-on", isFilterActivated);
+      },
+    });
+    filterButton.classList.add("filter-btn");
+    if (isFilterUnlocked) {
+      filterButton.classList.add("unlocked");
+    }
+
+    filterButton.appendChild(
+      createElement({
+        text: getTranslation(TranslationKey.FILTER_ON, possibleNumbers.length),
+        cssClass: "filter-on-text",
+        tag: "span",
+      }),
+    );
+    filterButton.appendChild(
+      createElement({
+        text: getTranslation(
+          TranslationKey.FILTER_OFF,
+          originalPossibleNumbers.length,
+        ),
+        cssClass: "filter-off-text",
+        tag: "span",
+      }),
+    );
+    filterButton.appendChild(
+      createElement({
+        text: `🔓 -${FULL_STAR}`,
+        cssClass: "cheat-lock",
+        tag: "span",
+      }),
+    );
+
+    container.append(filterButton);
+  }
+
   const entry = createElement({ cssClass: "cheat-sheet-entry" });
   entry.append(createElement({ text: getTranslation(TranslationKey.NUMBER) }));
   entry.append(
@@ -136,13 +194,7 @@ export function createCheatSheet(shouldSortByFactorization) {
   );
   container.append(entry);
 
-  if (!possibleNumberProperties) {
-    possibleNumberProperties = possibleNumbers.map((num) =>
-      getMathProperties(num),
-    );
-  }
-
-  const listOfNumbers = [...possibleNumberProperties];
+  const listOfNumbers = [...originalPossibleNumberProperties];
 
   if (shouldSortByFactorization) {
     listOfNumbers.sort(
@@ -162,6 +214,10 @@ export function createCheatSheet(shouldSortByFactorization) {
     );
     entry.append(createElement({ text: properties.sumOfDigits }));
     container.append(entry);
+
+    if (!possibleNumbers.includes(properties.value)) {
+      entry.classList.add("not-possible");
+    }
   }
 
   return container;

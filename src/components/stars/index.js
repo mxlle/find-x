@@ -43,7 +43,7 @@ export function getStarsForGameField() {
 
   pubSubService.subscribe(PubSubEvent.STARS_CHANGED, (gainedStars) => {
     console.log("Star update", gainedStars);
-    currentStars = currentStars + gainedStars;
+    currentStars = Math.max(Math.min(currentStars + gainedStars, maxStars), 0);
     updateStars(stars, currentStars);
     const starClass = gainedStars > 0 ? "new-star" : "lost-star";
     stars.classList.toggle(starClass, true);

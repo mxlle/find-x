@@ -33,6 +33,8 @@ export const TranslationKey = {
   RULES: 29,
   RULES_TEXT: 30,
   STAR_CHART: 31,
+  FILTER_ON: 32,
+  FILTER_OFF: 33,
 };
 
 const Translation = {
@@ -199,6 +201,14 @@ Du kannst dann erneut spielen, indem du auf die Schaltfläche "Nochmal spielen" 
   [TranslationKey.STAR_CHART]: {
     en: "🏆 Your results ⭐️",
     de: "🏆 Deine Ergebnisse ⭐️",
+  },
+  [TranslationKey.FILTER_ON]: {
+    en: "Only show possible values ({0})",
+    de: "Nur mögliche Werte anzeigen ({0})",
+  },
+  [TranslationKey.FILTER_OFF]: {
+    en: "Show all values ({0})",
+    de: "Alle Werte anzeigen ({0})",
   },
 };
 

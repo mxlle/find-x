@@ -5,6 +5,10 @@
   grid-auto-rows: min-content;
   margin: 1rem auto;
 
+  .filter-btn {
+    grid-column: 1 / -1;
+  }
+
   .cheat-sheet-entry {
     display: contents;
 
@@ -12,5 +16,25 @@
       white-space: nowrap;
       text-align: left;
     }
+  }
+}
+
+.filter-off-text {
+  display: none;
+}
+
+body.filter-on {
+  .cheat-sheet-entry {
+    &.not-possible {
+      display: none;
+    }
+  }
+
+  .filter-on-text {
+    display: none;
+  }
+
+  .filter-off-text {
+    display: inline-block;
   }
 }
