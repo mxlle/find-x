@@ -171,7 +171,8 @@ You can use these properties to find the secret number.  </p>
 
 <p>There is also a <strong>cheat sheet</strong> that shows you all numbers that are still possible. </p>
 
-<p>In each game you can score <strong>up to 5 stars</strong>. Stars get lost if you need too many guesses or use the cheat sheet filter. </p>
+<p>In each game you can score <strong>up to 5 stars</strong>. Stars get lost if you need too many guesses or use the cheat sheet filter. <br/>
+Fun fact: If you need exactly 13 guesses you will win one star back. </p>
 
 <p>The game ends when you have found the secret number. <br/>
 You can then play again by pressing the "Play again" button.  </p>
@@ -190,7 +191,8 @@ Du kannst diese Eigenschaften verwenden, um die geheime Zahl zu finden. </p>
 
 <p>Es gibt auch einen <strong>Spickzettel</strong>, der dir alle Zahlen anzeigt, die noch möglich sind. </p>
 
-<p>In jedem Spiel kannst du <strong>bis zu 5 Sterne</strong> sammeln. Sterne gehen verloren, wenn du zu viele Versuche brauchst oder den Spickzettel-Filter benutzt. </p>
+<p>In jedem Spiel kannst du <strong>bis zu 5 Sterne</strong> sammeln. Sterne gehen verloren, wenn du zu viele Versuche brauchst oder den Spickzettel-Filter benutzt. <br/>
+Fun fact: Wenn du genau 13 Versuche brauchst, erhälst du einen Stern zurück</p>
 
 <p>Das Spiel endet, wenn du die geheime Zahl gefunden hast.<br/>
 Du kannst dann erneut spielen, indem du auf die Schaltfläche "Nochmal spielen" klickst. </p>

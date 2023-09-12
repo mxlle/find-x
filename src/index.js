@@ -56,8 +56,8 @@ function onNewGameClick() {
   resetRevealedProperties();
   resetPossibleNumbers();
   updatePossibleNumbers(possibleNumberElem);
-  isCheatSheetActivated = false;
-  cheatSheetBtn.classList.remove("unlocked");
+  //isCheatSheetActivated = false;
+  //cheatSheetBtn.classList.remove("unlocked");
   if (cheatSheetDialog) {
     cheatSheetDialog.recreateDialogContent(createCheatSheet());
   }
