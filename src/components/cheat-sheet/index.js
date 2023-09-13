@@ -4,7 +4,6 @@ import { getMathProperties } from "../../game-logic";
 import "./index.scss";
 import { globals } from "../../globals";
 import { getCurrentlyRevealedProperties } from "../revealed-properties";
-import { getArrayIntersection } from "../../utils/array-utils";
 import { getTranslation, TranslationKey } from "../../translations";
 import { PubSubEvent, pubSubService } from "../../utils/pub-sub-service";
 import { FULL_STAR } from "../stars";
@@ -24,6 +23,7 @@ export function resetPossibleNumbers() {
   originalPossibleNumberProperties = [];
   isFilterUnlocked = false;
   isFilterActivated = false;
+  document.body.classList.remove("filter-on");
   filterButton?.classList.remove("unlocked");
 }
 
@@ -91,14 +91,26 @@ export function updatePossibleNumbers(possibleNumberElem) {
         }
 
         if (knownExcludedPrimeFactors?.length > 0) {
-          const intersectWithExcluded = getArrayIntersection(
-            knownExcludedPrimeFactors,
-            numProperties.primeFactorization,
-          );
-          const isPrimeFactorsPossible = !intersectWithExcluded.length;
+          const knownIncludedPrimeFactors =
+            currentGreatestKnownDivisorProperties?.primeFactorization
+              ? [...currentGreatestKnownDivisorProperties.primeFactorization]
+              : [];
 
-          if (!isPrimeFactorsPossible) {
-            return false;
+          for (let i = 0; i < numProperties.primeFactorization.length; i++) {
+            const primeFactor = numProperties.primeFactorization[i];
+            if (
+              knownExcludedPrimeFactors.includes(primeFactor) &&
+              !knownIncludedPrimeFactors.includes(primeFactor)
+            ) {
+              return false;
+            }
+
+            if (knownIncludedPrimeFactors.includes(primeFactor)) {
+              knownIncludedPrimeFactors.splice(
+                knownIncludedPrimeFactors.indexOf(primeFactor),
+                1,
+              );
+            }
           }
         }
 

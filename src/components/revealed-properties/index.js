@@ -134,12 +134,7 @@ export function updateRevealedProperties(result, guessProperties) {
       updateRevealedExcludedSumOfDigits(guessProperties.sumOfDigits);
     }
 
-    const excludedPrimeFactors = guessProperties.uniquePrimeFactors.filter(
-      (primeFactor) =>
-        !result.greatestCommonDivisor ||
-        result.greatestCommonDivisor % primeFactor !== 0,
-    );
-    updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
+    updateRevealedPrimeFactorsIncludingDuplicates(guessProperties);
   }
 }
 
@@ -165,8 +160,22 @@ function updateRevealedExcludedPrimeFactors(excludedPrimeFactors) {
     }
   }
 
+  const excludedPrimeFactorStrings = knownExcludedPrimeFactors
+    .sort((a, b) => a - b)
+    .map((primeFactor) => {
+      if (
+        currentGreatestKnownDivisorProperties?.primeFactorization.includes(
+          primeFactor,
+        )
+      ) {
+        return primeFactor + "+";
+      }
+
+      return primeFactor;
+    });
+
   excludedPrimeFactorsElem.innerText =
-    "X: " + [...knownExcludedPrimeFactors].sort((a, b) => a - b).join(", ");
+    "X: " + excludedPrimeFactorStrings.join(", ");
 }
 
 function updateRevealedPrimeFactors(primeFactors, isFinal) {
@@ -203,6 +212,34 @@ function updatedRevealedPrimeFactorsFromGcd(resultGcd) {
       }
     }
   }
+}
+
+function updateRevealedPrimeFactorsIncludingDuplicates(guessProperties) {
+  if (!currentGreatestKnownDivisorProperties) {
+    updateRevealedExcludedPrimeFactors(guessProperties.primeFactorization);
+
+    return;
+  }
+
+  const currentKnownPrimeFactors = [
+    ...currentGreatestKnownDivisorProperties.primeFactorization,
+  ];
+
+  const guessPrimeFactors = guessProperties.primeFactorization;
+
+  const excludedPrimeFactors = guessPrimeFactors.filter((primeFactor) => {
+    if (currentKnownPrimeFactors.includes(primeFactor)) {
+      currentKnownPrimeFactors.splice(
+        currentKnownPrimeFactors.indexOf(primeFactor),
+        1,
+      );
+      return false;
+    } else {
+      return true;
+    }
+  });
+
+  updateRevealedExcludedPrimeFactors(excludedPrimeFactors);
 }
 
 function updateRevealedExcludedSumOfDigits(excludedSumOfDigits) {
